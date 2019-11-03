@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthProvider, Theme} from 'ngx-auth-firebaseui';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -6,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  themes = Theme;
+  providers = AuthProvider.Google;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  onLoginSuccessful($event) {
+    console.log($event);
+    this.router.navigate(['main']);
+  }
 }
