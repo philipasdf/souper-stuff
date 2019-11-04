@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  firebaseConfig: {
+    apiKey: 'AIzaSyCv8JHkKy9coTrgzBO_s6iwOVKQQ61gcBY',
+    authDomain: 'souper-stuff-firebase.firebaseapp.com',
+    databaseURL: 'https://souper-stuff-firebase.firebaseio.com',
+    projectId: 'souper-stuff-firebase',
+    storageBucket: 'souper-stuff-firebase.appspot.com',
+    messagingSenderId: '468610452325',
+    appId: '1:468610452325:web:ac8aad479def2f37136f8c'
+  }
 };
 
 /*

@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  themes = Theme;
   providers = AuthProvider.Google;
 
   constructor(private router: Router) { }
