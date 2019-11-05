@@ -5,6 +5,7 @@ import {SouperPagesRoutingModule} from './souper-pages-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AddStuffPageComponent } from './add-stuff-page/add-stuff-page.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AddStuffPageComponent } from './add-stuff-page/add-stuff-page.component
   imports: [
     SharedModule,
     SouperPagesRoutingModule,
+    ReactiveFormsModule,
   ],
   exports: [
   ]

@@ -1,0 +1,11 @@
+.arrow-down-icon {
+  cursor: pointer;
+}
+
+.add-button {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}

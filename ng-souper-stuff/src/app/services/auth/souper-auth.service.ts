@@ -42,7 +42,7 @@ export class SouperAuthService {
       uid: user.uid,
       email: user.email,
       photoURL: user.photoURL,
-      group: 'groups/SYFzwshDoHYk9BC7afDH'
+      groupId: 'SYFzwshDoHYk9BC7afDH'
     };
 
     const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);

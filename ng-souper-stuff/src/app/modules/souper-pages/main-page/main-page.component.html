@@ -1,1 +1,29 @@
-<h1>main</h1>
+<mat-list>
+  <ng-container *ngFor="let stuff of stuffs | async">
+    <mat-list-item>
+      <span>{{ stuff.name }}</span>
+      <span fxFlex></span>
+      <mat-icon class="arrow-down-icon" (click)="onClickItem(stuff.id)">keyboard_arrow_down</mat-icon>
+    </mat-list-item>
+    <div>
+      <div *ngIf="stuff.count">
+        count: {{stuff.count}}
+      </div>
+      <div *ngIf="stuff.price">
+        price: {{stuff.price}}
+      </div>
+      <div *ngIf="stuff.note">
+        note: {{stuff.note}}
+      </div>
+      <div *ngIf="stuff.lastUpdated">
+        last time: {{stuff.lastUpdated.toDate()}}
+      </div>
+      <div *ngIf="stuff.tags">
+        <pre>{{stuff.tags | json}}</pre>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+
+<button class="add-button" mat-fab (click)="onAdd()"><mat-icon>add</mat-icon></button>

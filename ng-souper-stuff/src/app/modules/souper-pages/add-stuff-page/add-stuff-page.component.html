@@ -1,9 +1,17 @@
-<form>
+<form [formGroup]="formGroup">
   <mat-form-field class="width-100">
-    <input matInput placeholder="name">
+    <input matInput placeholder="name" type="text" formControlName="name" required>
+  </mat-form-field>
+
+  <mat-form-field class="width-100" appearance="outline">
+    <mat-label>price</mat-label>
+    <input matInput placeholder="price" type="number" formControlName="price">
+    <mat-icon matSuffix>euro</mat-icon>
   </mat-form-field>
 
   <mat-form-field class="width-100">
-    <textarea matInput placeholder="note"></textarea>
+    <textarea matInput placeholder="note" formControlName="note"></textarea>
   </mat-form-field>
+
+  <button mat-flat-button color="primary" (click)="onSubmit()">Create</button>
 </form>

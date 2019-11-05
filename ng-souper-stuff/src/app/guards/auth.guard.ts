@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: SouperAuthService, private router: Router) {
   }
 
-
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.user$.pipe(
       take(1),
