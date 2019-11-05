@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SouperAuthService} from '../../services/auth/souper-auth.service';
 
 @Component({
   selector: 'app-souper-pages',
@@ -7,10 +8,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SouperPagesComponent implements OnInit {
 
-  constructor() {
+  constructor(private authService: SouperAuthService) {
   }
 
   ngOnInit() {
   }
 
+  onSignOut() {
+    this.authService.signOut();
+  }
 }

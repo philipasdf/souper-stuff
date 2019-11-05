@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthProvider, Theme} from 'ngx-auth-firebaseui';
 import {Router} from '@angular/router';
+import {SouperAuthService} from '../../../services/auth/souper-auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -8,15 +8,12 @@ import {Router} from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  providers = AuthProvider.Google;
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: SouperAuthService ) { }
 
   ngOnInit() {
   }
 
-  onLoginSuccessful($event) {
-    console.log($event);
-    this.router.navigate(['main']);
+  onSignIn() {
+    this.authService.googleSignin();
   }
 }

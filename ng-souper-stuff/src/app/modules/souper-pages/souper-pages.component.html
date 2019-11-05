@@ -1,7 +1,11 @@
 <mat-toolbar color="primary">
   <span>SOUPER STUFF</span>
   <span fxFlex></span>
-  <ngx-auth-firebaseui-avatar></ngx-auth-firebaseui-avatar>
+  <img *ngIf="authService.user$ | async as user"
+       class="avatar"
+       src="{{user.photoURL}}"
+       alt="avatar"
+       (click)="onSignOut()">
 </mat-toolbar>
 
 <div class="souper-pages-container">

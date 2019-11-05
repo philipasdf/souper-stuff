@@ -5,7 +5,6 @@ import {SouperPagesRoutingModule} from './souper-pages-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AddStuffPageComponent } from './add-stuff-page/add-stuff-page.component';
-import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
   imports: [
     SharedModule,
     SouperPagesRoutingModule,
-    NgxAuthFirebaseUIModule,
   ],
   exports: [
   ]
