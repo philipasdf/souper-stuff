@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span>SOUPER STUFF</span>
   <span fxFlex></span>
-  <img *ngIf="authService.user$ | async as user"
+  <img *ngIf="user | async as user"
        class="avatar"
        src="{{user.photoURL}}"
        alt="avatar"

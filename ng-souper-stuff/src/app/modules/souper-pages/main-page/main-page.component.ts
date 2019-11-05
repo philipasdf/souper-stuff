@@ -12,19 +12,18 @@ export class MainPageComponent implements OnInit {
 
   constructor(private authService: SouperAuthService,
               private stuffService: StuffService,
-              private router: Router) { }
-
-  ngOnInit() {
-
+              private router: Router) {
   }
 
-export class MainPageComponent implements OnInit {
+  ngOnInit() {
+  }
 
   get stuffs() {
     return this.stuffService.stuffs;
   }
 
-  ngOnInit() {
+  onClickItem(stuffId: string) {
+    // TODO  implement expansion panel
   }
 
   onAdd() {

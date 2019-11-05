@@ -14,6 +14,10 @@ export class SouperPagesComponent implements OnInit {
   ngOnInit() {
   }
 
+  get user() {
+    return this.authService.user$;
+  }
+
   onSignOut() {
     this.authService.signOut();
   }
