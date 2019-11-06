@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference} from '@angular/fire/firestore';
 import {Stuff} from './stuff';
-import {Observable} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {SouperAuthService} from '../auth/souper-auth.service';
 import {User} from '../auth/user';
-import {take} from 'rxjs/operators';
+import {switchMap, take} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class StuffService {
 
   stuffsCollection: AngularFirestoreCollection<Stuff>;
-  stuffs: Observable<Stuff[]>;
+  stuffs$: Observable<any[]>;
+  searchTags$ = new Subject<string[]>();
 
   currentGroupId: string;
 
@@ -22,12 +23,27 @@ export class StuffService {
     const user: User = await this.authService.user$.pipe(take(1)).toPromise();
     this.currentGroupId = user.groupId;
 
-    this.stuffsCollection = await this.firestore.collection(`stuffs/${this.currentGroupId}/groupStuffs`, ref => {
-      return ref.orderBy('name', 'asc');
-      // return ref.orderBy('name', 'asc').where('rating', '==', 5).where('count', '==', 1);
-      // doesnt work with > operator, would need new index
-    }); // reference
-    this.stuffs = this.stuffsCollection.valueChanges(); // observable of data
+
+    this.stuffs$ = this.searchTags$.pipe(
+      switchMap((tags: string[]) => {
+        if (tags.length > 0) {
+          return this.firestore.collection(`stuffs/${this.currentGroupId}/groupStuffs`, (ref) => {
+
+            let query = ref.where('active', '==', true); // workaround to get query object from ref
+
+            tags.forEach(tag => {
+              query = query.where(`tags.${tag}`, '==', true);
+            });
+            return query;
+
+          }).valueChanges();
+        } else {
+          return of([]);
+        }
+      }
+    ));
+
+    this.filterStuffsByTags([]);
   }
 
   createStuff(stuff: Stuff) {
@@ -36,5 +52,9 @@ export class StuffService {
     }).catch(error => {
       console.error('error when adding new stuff to collection', stuff);
     });
+  }
+
+  filterStuffsByTags(tags: string[]) {
+    this.searchTags$.next(tags);
   }
 }

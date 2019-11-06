@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
 
   tagInputControl = new FormControl();
 
-  @ViewChild('fruitInput', {static: false}) fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(private authService: SouperAuthService,
@@ -50,7 +50,7 @@ export class MainPageComponent implements OnInit {
   }
 
   get stuffs() {
-    return this.stuffService.stuffs;
+    return this.stuffService.stuffs$;
   }
 
   onClickItem(stuffId: string) {
@@ -59,11 +59,14 @@ export class MainPageComponent implements OnInit {
 
   onSelectBasicTag(tag) {
     this.selectedTags.push(tag);
+    this.stuffService.filterStuffsByTags(this.selectedTags);
   }
 
   onSelectTag(event: MatAutocompleteSelectedEvent) {
     this.selectedTags.push(event.option.viewValue);
-    this.tagInputControl.setValue('');
+    this.tagInput.nativeElement.value = '';
+    this.tagInputControl.setValue(null);
+    this.stuffService.filterStuffsByTags(this.selectedTags); // todo refactor
   }
 
   onRemoveTag(tag: string) {
@@ -72,6 +75,7 @@ export class MainPageComponent implements OnInit {
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     }
+    this.stuffService.filterStuffsByTags(this.selectedTags);
   }
 
   onAddStuff() {

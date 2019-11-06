@@ -1,5 +1,6 @@
 export class Stuff {
   id?: string;
+  active: boolean;
   name: string;
   note: string;
   rating: number;

@@ -28,6 +28,7 @@ export class AddStuffPageComponent implements OnInit {
 
   onSubmit() {
     const newStuff: Stuff = {
+      active: true,
       name: this.formGroup.get('name').value,
       price: this.formGroup.get('price').value,
       rating: 0,
