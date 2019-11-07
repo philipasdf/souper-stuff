@@ -3,38 +3,7 @@
     <input matInput placeholder="name" type="text" formControlName="name" required>
   </mat-form-field>
 
-
-  <!-- tags search bar-->
-  <mat-chip-list>
-    <mat-chip *ngFor="let basicTag of basicTags"
-              color="accent"
-              selected
-              (click)="onSelectBasicTag(basicTag)">{{basicTag}}</mat-chip>
-  </mat-chip-list>
-  <br>
-  <mat-form-field class="width-100" >
-    <mat-chip-list #chipList>
-      <mat-chip *ngFor="let tag of selectedTags$ | async" (removed)="onRemoveTag(tag)">
-        {{tag}}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-      <input #tagInput
-             matInput
-             placeholder="enter some tags or choose basic tags from above"
-             [formControl]="tagInputControl"
-             [matAutocomplete]="auto"
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             (matChipInputTokenEnd)="addNewTag($event)">
-    </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectTag($event)">
-      <mat-option *ngFor="let filteredTag of filteredTags$ | async" [value]="filteredTag">
-        {{filteredTag}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
-
+  <app-select-tags-field [selectedTags$]="selectedTags$"></app-select-tags-field>
 
   <mat-form-field class="width-100" appearance="outline">
     <mat-label>price</mat-label>

@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { AddStuffPageComponent } from './add-stuff-page/add-stuff-page.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { StuffListElementComponent } from './main-page/stuff-list-element/stuff-list-element.component';
+import { SelectTagsFieldComponent } from './select-tags-field/select-tags-field.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StuffListElementComponent } from './main-page/stuff-list-element/stuff-
     MainPageComponent,
     AddStuffPageComponent,
     StuffListElementComponent,
+    SelectTagsFieldComponent,
   ],
   imports: [
     SharedModule,
