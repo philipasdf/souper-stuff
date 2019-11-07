@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
-  <span>SOUPER STUFF</span>
-  <span fxFlex></span>
+  <mat-icon>fireplace</mat-icon>
+  <span fxFlex class="app-title">SOUPER STUFF</span>
   <img *ngIf="user | async as user"
        class="avatar"
        src="{{user.photoURL}}"
