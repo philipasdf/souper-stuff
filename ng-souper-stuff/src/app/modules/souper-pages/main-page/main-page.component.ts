@@ -86,11 +86,7 @@ export class MainPageComponent implements OnInit {
   }
 
   onAddStuff() {
-    this.router.navigate(['add']);
-  }
-
-  onClickItem(stuffId: string) {
-    // TODO  implement expansion panel
+    this.router.navigate(['main/add']);
   }
 
   private filterTags(searchString: string) {

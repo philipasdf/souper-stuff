@@ -1,6 +1,7 @@
 <h2 *ngIf="group | async as g">{{g.name | uppercase}}</h2>
 <!-- <pre>{{groupTags | async | json}}</pre>
 <pre>{{stuffs | async | json}}</pre> -->
+<!-- tags search bar-->
 <mat-chip-list>
   <mat-chip *ngFor="let basicTag of basicTags"
             color="accent"
@@ -29,39 +30,10 @@
   </mat-autocomplete>
 </mat-form-field>
 
-
-
-
+<!-- stuff list -->
 <mat-list>
-  <ng-container *ngFor="let stuff of stuffs | async">
-    <mat-list-item>
-      <span>{{ stuff.name }}</span>
-      <span fxFlex></span>
-      <mat-icon class="arrow-down-icon" (click)="onClickItem(stuff.id)">keyboard_arrow_down</mat-icon>
-    </mat-list-item>
-    <div>
-      <div *ngIf="stuff.count">
-        count: {{stuff.count}}
-      </div>
-      <div *ngIf="stuff.price">
-        price: {{stuff.price}}
-      </div>
-      <div *ngIf="stuff.note">
-        note: {{stuff.note}}
-      </div>
-      <div *ngIf="stuff.lastUpdated">
-        last time: {{stuff.lastUpdated.toDate()}}
-      </div>
-      <div *ngIf="stuff.tags">
-        <mat-chip-list>
-          <mat-chip *ngFor="let tag of stuff.tags | keyvalue">{{tag.key}}</mat-chip>
-        </mat-chip-list>
-      </div>
-    </div>
-
-    <br>
-    <mat-divider></mat-divider>
-  </ng-container>
+  <app-stuff-list-element *ngFor="let stuff of stuffs | async" [stuff]="stuff"></app-stuff-list-element>
 </mat-list>
 
+<!-- add stuff button -->
 <button class="add-button" mat-fab (click)="onAddStuff()"><mat-icon>add</mat-icon></button>

@@ -1,0 +1,27 @@
+<mat-list-item>
+  <span>{{ stuff.name }}</span>
+  <span fxFlex></span>
+  <mat-icon class="arrow-down-icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
+</mat-list-item>
+<div [@expandElementAnimation]="expandView ? 'open': 'closed'">
+  <div *ngIf="stuff.count">
+    count: {{stuff.count}}
+  </div>
+  <div *ngIf="stuff.price">
+    price: {{stuff.price}}
+  </div>
+  <div *ngIf="stuff.note">
+    note: {{stuff.note}}
+  </div>
+  <div *ngIf="stuff.lastUpdated">
+    last time: {{stuff.lastUpdated.toDate()}}
+  </div>
+  <div *ngIf="stuff.tags">
+    <mat-chip-list>
+      <mat-chip *ngFor="let tag of stuff.tags | keyvalue">{{tag.key}}</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
+
+<br>
+<mat-divider></mat-divider>
