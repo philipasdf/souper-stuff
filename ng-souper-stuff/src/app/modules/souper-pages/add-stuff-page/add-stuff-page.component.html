@@ -15,5 +15,7 @@
     <textarea matInput placeholder="note" formControlName="note"></textarea>
   </mat-form-field>
 
-  <button mat-flat-button color="primary" (click)="onSubmit()">Create</button>
+  <button mat-flat-button color="primary"
+          [disabled]="!formGroup.valid"
+          (click)="onSubmit()">Create</button>
 </form>
