@@ -7,7 +7,7 @@
 <br>
 <mat-form-field class="width-100" >
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let tag of selectedTags" (removed)="onRemoveTag(tag)">
+    <mat-chip *ngFor="let tag of selectedTags$ | async" (removed)="onRemoveTag(tag)">
         {{tag}}
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
@@ -20,7 +20,7 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectTag($event)">
-    <mat-option *ngFor="let filteredTag of filteredTags | async" [value]="filteredTag">
+    <mat-option *ngFor="let filteredTag of filteredTags$ | async" [value]="filteredTag">
       {{filteredTag}}
     </mat-option>
   </mat-autocomplete>

@@ -4,7 +4,7 @@ import {SouperAuthService} from '../../../services/auth/souper-auth.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {map, startWith} from 'rxjs/operators';
 
@@ -16,7 +16,6 @@ import {map, startWith} from 'rxjs/operators';
 export class MainPageComponent implements OnInit {
 
   testBasicTags = ['food', 'bars', 'test'];
-  selectedTags = [];
   testAllAvailableTags = [
     'rewe',
     'hookah',
@@ -27,8 +26,10 @@ export class MainPageComponent implements OnInit {
     'fish',
     'meat',
     'vegetarian',
+    'love',
   ];
-  filteredTags: Observable<string[]>;
+  filteredTags$: Observable<string[]>;
+  selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -40,10 +41,12 @@ export class MainPageComponent implements OnInit {
   constructor(private authService: SouperAuthService,
               private stuffService: StuffService,
               private router: Router) {
-    this.filteredTags = this.tagInputControl.valueChanges.pipe(
+    this.filteredTags$ = this.tagInputControl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this.filterTags(tag) : this.testAllAvailableTags.slice())
     );
+
+    this.selectedTags$.subscribe(tags => this.stuffService.filterStuffsByTags(tags));
   }
 
   ngOnInit() {
@@ -58,24 +61,27 @@ export class MainPageComponent implements OnInit {
   }
 
   onSelectBasicTag(tag) {
-    this.selectedTags.push(tag);
-    this.stuffService.filterStuffsByTags(this.selectedTags);
+    const currentTags: string[] = this.selectedTags$.getValue();
+    this.selectedTags$.next([...currentTags, tag]);
   }
 
   onSelectTag(event: MatAutocompleteSelectedEvent) {
-    this.selectedTags.push(event.option.viewValue);
+    const newTag = event.option.viewValue;
+    const currentTags: string[] = this.selectedTags$.getValue();
+    this.selectedTags$.next([...currentTags, newTag]);
+
     this.tagInput.nativeElement.value = '';
     this.tagInputControl.setValue(null);
-    this.stuffService.filterStuffsByTags(this.selectedTags); // todo refactor
   }
 
   onRemoveTag(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
+    const currentTags: string[] = this.selectedTags$.getValue();
+    const index = currentTags.indexOf(tag);
 
     if (index >= 0) {
-      this.selectedTags.splice(index, 1);
+      currentTags.splice(index, 1);
     }
-    this.stuffService.filterStuffsByTags(this.selectedTags);
+    this.selectedTags$.next(currentTags);
   }
 
   onAddStuff() {
