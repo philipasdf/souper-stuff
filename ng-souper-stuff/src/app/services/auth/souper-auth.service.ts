@@ -7,10 +7,13 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestor
 import {switchMap} from 'rxjs/operators';
 import { auth } from 'firebase/app';
 
+export const GROUPID_SESSIONKEY = 'souper-stuff-user-group-id';
+
 @Injectable({ providedIn: 'root' })
 export class SouperAuthService {
 
   user$: Observable<User>;
+  user: User;
 
   constructor(private router: Router,
               private fireAuth: AngularFireAuth,
@@ -29,7 +32,7 @@ export class SouperAuthService {
   async googleSignin() {
     const credential = await this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     this.updateUserData(credential.user);
-    return this.router.navigate(['main']);
+    return this.router.navigate([`main/list`]);
   }
 
   async signOut() {
@@ -37,7 +40,7 @@ export class SouperAuthService {
     return this.router.navigate(['/']);
   }
 
-  private updateUserData(user) {
+  private updateUserData(user: User) {
     const newUser = {
       uid: user.uid,
       email: user.email,
@@ -45,7 +48,12 @@ export class SouperAuthService {
       groupId: 'SYFzwshDoHYk9BC7afDH'
     };
 
+    // TODO how can I pass groupId to other services by DI? And does it work with page reload then?
+    localStorage.setItem(GROUPID_SESSIONKEY, 'SYFzwshDoHYk9BC7afDH');
+    console.log(localStorage);
+    this.user = newUser; // todo fetch from fire
+
     const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);
-    return userRef.set(newUser, {merge: true});
+    userRef.set(newUser, {merge: true});
   }
 }

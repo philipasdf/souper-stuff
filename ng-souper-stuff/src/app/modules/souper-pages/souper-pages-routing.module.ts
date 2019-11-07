@@ -11,8 +11,15 @@ const routes: Routes = [
     component: SouperPagesComponent,
     children: [
       { path: 'login', component: LoginPageComponent },
-      { path: 'main', component: MainPageComponent, canActivate: [AuthGuard] },
-      { path: 'add', component: AddStuffPageComponent, canActivate: [AuthGuard] },
+    ]
+  },
+  {
+    path: 'main',
+    component: SouperPagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'list', component: MainPageComponent, },
+      { path: 'add', component: AddStuffPageComponent },
     ]
   }
 ];

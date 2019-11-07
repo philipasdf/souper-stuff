@@ -1,12 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {StuffService} from '../../../services/stuff/stuff.service';
 import {SouperAuthService} from '../../../services/auth/souper-auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, take} from 'rxjs/operators';
+import {GroupService} from '../../../services/group/group.service';
+import {Tag} from '../../../services/group/tag';
 
 @Component({
   selector: 'app-main-page',
@@ -15,19 +17,8 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class MainPageComponent implements OnInit {
 
-  testBasicTags = ['food', 'bars', 'test'];
-  testAllAvailableTags = [
-    'rewe',
-    'hookah',
-    'brand',
-    'tobacco',
-    'instant',
-    'fastfood',
-    'fish',
-    'meat',
-    'vegetarian',
-    'love',
-  ];
+  basicTags = ['food', 'bars', 'test'];
+  allAvailableTags = [];
   filteredTags$: Observable<string[]>;
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
@@ -38,12 +29,18 @@ export class MainPageComponent implements OnInit {
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
-  constructor(private authService: SouperAuthService,
-              private stuffService: StuffService,
+  constructor(private stuffService: StuffService,
+              private groupService: GroupService,
+              private activatedRoute: ActivatedRoute,
               private router: Router) {
+
+    this.groupService.currentGroupTags$.subscribe((tags: Tag[]) => {
+      this.allAvailableTags = tags.map(tag => tag.name);
+    });
+
     this.filteredTags$ = this.tagInputControl.valueChanges.pipe(
       startWith(null),
-      map((tag: string | null) => tag ? this.filterTags(tag) : this.testAllAvailableTags.slice())
+      map((tag: string | null) => tag ? this.filterTags(tag) : this.allAvailableTags.slice())
     );
 
     this.selectedTags$.subscribe(tags => this.stuffService.filterStuffsByTags(tags));
@@ -52,12 +49,16 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  get stuffs() {
-    return this.stuffService.stuffs$;
+  get group() {
+    return this.groupService.currentGroup$;
   }
 
-  onClickItem(stuffId: string) {
-    // TODO  implement expansion panel
+  get groupTags() {
+    return this.groupService.currentGroupTags$;
+  }
+
+  get stuffs() {
+    return this.stuffService.stuffs$;
   }
 
   onSelectBasicTag(tag) {
@@ -88,8 +89,12 @@ export class MainPageComponent implements OnInit {
     this.router.navigate(['add']);
   }
 
+  onClickItem(stuffId: string) {
+    // TODO  implement expansion panel
+  }
+
   private filterTags(searchString: string) {
     const filterValue = searchString.toLowerCase();
-    return this.testAllAvailableTags.filter(tag => tag.toLowerCase().startsWith(filterValue));
+    return this.allAvailableTags.filter(tag => tag.toLowerCase().startsWith(filterValue));
   }
 }

@@ -1,5 +1,8 @@
+<h2 *ngIf="group | async as g">{{g.name | uppercase}}</h2>
+<!-- <pre>{{groupTags | async | json}}</pre>
+<pre>{{stuffs | async | json}}</pre> -->
 <mat-chip-list>
-  <mat-chip *ngFor="let basicTag of testBasicTags"
+  <mat-chip *ngFor="let basicTag of basicTags"
             color="accent"
             selected
             (click)="onSelectBasicTag(basicTag)">{{basicTag}}</mat-chip>
