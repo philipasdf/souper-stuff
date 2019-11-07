@@ -50,9 +50,13 @@
         last time: {{stuff.lastUpdated.toDate()}}
       </div>
       <div *ngIf="stuff.tags">
-        <pre>{{stuff.tags | json}}</pre>
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of stuff.tags | keyvalue">{{tag.key}}</mat-chip>
+        </mat-chip-list>
       </div>
     </div>
+
+    <br>
     <mat-divider></mat-divider>
   </ng-container>
 </mat-list>
