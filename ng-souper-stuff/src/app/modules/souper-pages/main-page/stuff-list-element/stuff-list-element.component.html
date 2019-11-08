@@ -1,18 +1,33 @@
 <mat-list-item>
   <span>{{ stuff.name }}</span>
   <span fxFlex></span>
-  <mat-icon class="arrow-down-icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
+  <mat-icon class="icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
 </mat-list-item>
 <div [@expandElementAnimation]="expandView ? 'open': 'closed'">
+  <form>
   <div *ngIf="stuff.count">
     count: {{stuff.count}}
   </div>
-  <div *ngIf="stuff.price">
-    price: {{stuff.price}}
-  </div>
-  <div *ngIf="stuff.note">
-    note: {{stuff.note}}
-  </div>
+    <!-- price field -->
+  <mat-form-field *ngIf="stuff.price || editMode" class="width-50" appearance="outline">
+    <mat-label>price</mat-label>
+    <input matInput
+           name="price"
+           placeholder="price"
+           type="number"
+           [readonly]="!editMode"
+           [(ngModel)]="stuff.price">
+    <mat-icon matSuffix>euro</mat-icon>
+  </mat-form-field>
+    <!-- note field -->
+  <mat-form-field *ngIf="stuff.note || editMode" class="width-100">
+    <textarea matInput
+              placeholder="note"
+              name="note"
+              [readonly]="!editMode"
+              [(ngModel)]="stuff.note"></textarea>
+  </mat-form-field>
+
   <div *ngIf="stuff.lastUpdated">
     last time: {{stuff.lastUpdated.toDate()}}
   </div>
@@ -21,6 +36,12 @@
       <mat-chip *ngFor="let tag of stuff.tags | keyvalue">{{tag.key}}</mat-chip>
     </mat-chip-list>
   </div>
+
+    <!-- save stuff button -->
+    <button *ngIf="editMode" mat-fab (click)="onSave()"><mat-icon>check</mat-icon></button>
+    <!-- toggle edit mode button -->
+    <mat-icon class="icon" (click)="onToggleEditMode()">edit</mat-icon>
+  </form>
 </div>
 
 <br>
