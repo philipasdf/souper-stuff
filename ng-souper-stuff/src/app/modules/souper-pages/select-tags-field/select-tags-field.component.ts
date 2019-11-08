@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent} from '@angular/material';
 import {FormControl} from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-select-tags-field',
@@ -20,7 +20,7 @@ export class SelectTagsFieldComponent implements OnInit {
   allAvailableTags = [];
   filteredTags$: Observable<string[]>;
   tagInputControl = new FormControl();
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
