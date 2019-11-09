@@ -34,7 +34,6 @@ export class SelectTagsFieldComponent implements OnInit {
     });
 
     this.filteredTags$ = this.tagInputControl.valueChanges.pipe(
-      startWith(null),
       map((tag: string | null) => tag ? this.filterTags(tag) : this.allAvailableTags.slice())
     );
   }

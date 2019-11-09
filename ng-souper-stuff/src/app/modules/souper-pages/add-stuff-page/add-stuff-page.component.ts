@@ -26,6 +26,7 @@ export class AddStuffPageComponent implements OnInit {
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(private stuffService: StuffService,
+              private groupService: GroupService,
               private router: Router) {
   }
 
@@ -49,6 +50,7 @@ export class AddStuffPageComponent implements OnInit {
     };
 
     this.stuffService.createStuff(newStuff);
+    this.groupService.createTags(currentTags);
     this.router.navigate(['main/list']);
   }
 }

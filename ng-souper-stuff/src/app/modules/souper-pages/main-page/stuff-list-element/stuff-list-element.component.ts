@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StuffService} from '../../../../services/stuff/stuff.service';
 import {BehaviorSubject} from 'rxjs';
+import {GroupService} from '../../../../services/group/group.service';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -35,7 +36,8 @@ export class StuffListElementComponent implements OnInit {
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
-  constructor(private stuffService: StuffService) { }
+  constructor(private stuffService: StuffService,
+              private groupService: GroupService) { }
 
   ngOnInit() {
     const tagArray: string[] = [];
@@ -59,6 +61,7 @@ export class StuffListElementComponent implements OnInit {
     currentTags.forEach(tagString => tagObject[tagString] = true);
     this.stuff.tags = tagObject;
     console.log(this.stuff);
+    this.groupService.createTags(currentTags);
     this.stuffService.updateStuff(this.stuff);
   }
 }
