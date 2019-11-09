@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SouperAuthService} from '../../services/auth/souper-auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-souper-pages',
@@ -8,7 +9,7 @@ import {SouperAuthService} from '../../services/auth/souper-auth.service';
 })
 export class SouperPagesComponent implements OnInit {
 
-  constructor(private authService: SouperAuthService) {
+  constructor(private authService: SouperAuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,5 +21,9 @@ export class SouperPagesComponent implements OnInit {
 
   onSignOut() {
     this.authService.signOut();
+  }
+
+  onClickLogo() {
+    this.router.navigate(['main/list']);
   }
 }
