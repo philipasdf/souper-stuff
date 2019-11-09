@@ -1,20 +1,22 @@
-<mat-chip-list>
+<mat-chip-list *ngIf="showBasicTags">
   <mat-chip *ngFor="let basicTag of basicTags"
             color="accent"
             selected
             (click)="onSelectBasicTag(basicTag)">{{basicTag}}</mat-chip>
 </mat-chip-list>
-<br>
-<mat-form-field class="width-100" >
+<br *ngIf="showBasicTags">
+<mat-form-field class="width-100" appearance="outline">
+  <mat-label>tags</mat-label>
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let tag of selectedTags$ | async" (removed)="onRemoveTag(tag)">
       {{tag}}
-      <mat-icon matChipRemove>cancel</mat-icon>
+      <mat-icon *ngIf="!readonly" matChipRemove>cancel</mat-icon>
     </mat-chip>
     <!-- matChipInputAddOnBlur = true because KeyCodes are different in chrome mobile -->
     <input #tagInput
            matInput
-           placeholder="enter some tags or choose basic tags from above"
+           placeholder="{{placeholderText}}"
+           [readonly]="readonly"
            [formControl]="tagInputControl"
            [matAutocomplete]="auto"
            [matChipInputFor]="chipList"

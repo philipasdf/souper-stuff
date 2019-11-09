@@ -5,20 +5,31 @@
 </mat-list-item>
 <div [@expandElementAnimation]="expandView ? 'open': 'closed'">
   <form>
-  <div *ngIf="stuff.count">
-    count: {{stuff.count}}
-  </div>
-    <!-- price field -->
-  <mat-form-field *ngIf="stuff.price || editMode" class="width-50" appearance="outline">
-    <mat-label>price</mat-label>
-    <input matInput
-           name="price"
-           placeholder="price"
-           type="number"
-           [readonly]="!editMode"
-           [(ngModel)]="stuff.price">
-    <mat-icon matSuffix>euro</mat-icon>
-  </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="10px">
+      <!-- count field -->
+      <mat-form-field *ngIf="stuff.count || editMode" class="width-50" appearance="outline">
+        <mat-label>count</mat-label>
+        <input matInput
+               name="count"
+               placeholder="count"
+               type="number"
+               [readonly]="!editMode"
+               [(ngModel)]="stuff.count">
+      </mat-form-field>
+      <!-- price field -->
+      <mat-form-field *ngIf="stuff.price || editMode" class="width-50" appearance="outline">
+        <mat-label>price</mat-label>
+        <input matInput
+               name="price"
+               placeholder="price"
+               type="number"
+               [readonly]="!editMode"
+               [(ngModel)]="stuff.price">
+        <mat-icon matSuffix>euro</mat-icon>
+      </mat-form-field>
+    </div>
+
     <!-- note field -->
   <mat-form-field *ngIf="stuff.note || editMode" class="width-100">
     <textarea matInput
@@ -27,20 +38,24 @@
               [readonly]="!editMode"
               [(ngModel)]="stuff.note"></textarea>
   </mat-form-field>
+    <!-- tags field -->
+    <app-select-tags-field [selectedTags$]="selectedTags$"
+                           [showBasicTags]="false"
+                           [readonly]="!editMode">
 
+    </app-select-tags-field>
+
+    <!-- last time updated field
   <div *ngIf="stuff.lastUpdated">
     last time: {{stuff.lastUpdated.toDate()}}
-  </div>
-  <div *ngIf="stuff.tags">
-    <mat-chip-list>
-      <mat-chip *ngFor="let tag of stuff.tags | keyvalue">{{tag.key}}</mat-chip>
-    </mat-chip-list>
-  </div>
+  </div>-->
 
-    <!-- save stuff button -->
-    <button *ngIf="editMode" mat-fab (click)="onSave()"><mat-icon>check</mat-icon></button>
-    <!-- toggle edit mode button -->
-    <mat-icon class="icon" (click)="onToggleEditMode()">edit</mat-icon>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+      <!-- toggle edit mode button -->
+      <mat-icon class="icon" (click)="onToggleEditMode()">edit</mat-icon>
+      <!-- save stuff button -->
+      <button *ngIf="editMode" mat-fab (click)="onSave()"><mat-icon>check</mat-icon></button>
+    </div>
   </form>
 </div>
 

@@ -1,7 +1,9 @@
 <h2 *ngIf="group | async as g">{{g.name | uppercase}}</h2>
 
 <!-- tags search bar-->
-<app-select-tags-field [selectedTags$]="selectedTags$" [disableNewTags]="true"></app-select-tags-field>
+<app-select-tags-field [selectedTags$]="selectedTags$"
+                       [placeholderText]="'enter some tags or choose basic tags from above'"
+                       [disableNewTags]="true"></app-select-tags-field>
 
 <!-- stuff list -->
 <mat-list>

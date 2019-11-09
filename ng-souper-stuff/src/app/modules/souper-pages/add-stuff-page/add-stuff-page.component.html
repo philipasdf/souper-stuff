@@ -3,7 +3,7 @@
     <input matInput placeholder="name" type="text" formControlName="name" required>
   </mat-form-field>
 
-  <app-select-tags-field [selectedTags$]="selectedTags$"></app-select-tags-field>
+  <app-select-tags-field [selectedTags$]="selectedTags$" [placeholderText]="'enter some tags or choose basic tags from above'"></app-select-tags-field>
 
   <mat-form-field class="width-100" appearance="outline">
     <mat-label>price</mat-label>

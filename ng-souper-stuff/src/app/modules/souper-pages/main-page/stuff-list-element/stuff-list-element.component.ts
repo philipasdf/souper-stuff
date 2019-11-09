@@ -4,6 +4,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StuffService} from '../../../../services/stuff/stuff.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -32,9 +33,16 @@ export class StuffListElementComponent implements OnInit {
   expandView = false;
   editMode = false;
 
+  selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+
   constructor(private stuffService: StuffService) { }
 
   ngOnInit() {
+    const tagArray: string[] = [];
+    for (const key in this.stuff.tags) {
+      tagArray.push(key);
+    }
+    this.selectedTags$.next(tagArray);
   }
 
   onToggleExpandView() {
@@ -46,6 +54,10 @@ export class StuffListElementComponent implements OnInit {
   }
 
   onSave() {
+    const tagObject = {};
+    const currentTags: string[] = this.selectedTags$.getValue();
+    currentTags.forEach(tagString => tagObject[tagString] = true);
+    this.stuff.tags = tagObject;
     console.log(this.stuff);
     this.stuffService.updateStuff(this.stuff);
   }

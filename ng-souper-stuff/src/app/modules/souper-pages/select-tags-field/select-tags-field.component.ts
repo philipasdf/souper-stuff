@@ -13,8 +13,11 @@ import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 })
 export class SelectTagsFieldComponent implements OnInit {
 
+  @Input() placeholderText = '';
   @Input() selectedTags$: BehaviorSubject<string[]>;
   @Input() disableNewTags = false;
+  @Input() readonly = false;
+  @Input() showBasicTags = true;
 
   basicTags = ['food', 'bars', 'test'];
   allAvailableTags = [];
