@@ -39,7 +39,8 @@ export class StuffService {
 
   async createStuff(stuff: Stuff) {
     stuff.id = this.firestore.createId();
-    this.firestore.collection(this.firestorePath).add(stuff).then(docRef => {
+    const stuffRef: AngularFirestoreDocument<Stuff> = this.firestore.doc(this.firestorePath + `/${stuff.id}`);
+    stuffRef.set(stuff).then(docRef => {
       console.log('new stuff was added to collection');
     }).catch(error => {
       console.error('error when adding new stuff to collection', stuff);
@@ -48,7 +49,11 @@ export class StuffService {
 
   updateStuff(stuff: Stuff) {
     const stuffRef: AngularFirestoreDocument<Stuff> = this.firestore.doc(this.firestorePath + `/${stuff.id}`);
-    stuffRef.set(stuff, {merge: true});
+    stuffRef.update(stuff).then(docRef => {
+      console.log('stuff was updated');
+    }).catch(error => {
+      console.error('error when updating stuff', stuff);
+    });
   }
 
   filterStuffsByTags(tags: string[]) {
