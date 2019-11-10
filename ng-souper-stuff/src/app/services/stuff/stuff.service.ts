@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Stuff} from './stuff';
 import {Observable, of, Subject} from 'rxjs';
-import {GROUPID_SESSIONKEY, SouperAuthService} from '../auth/souper-auth.service';
+import {GROUPID_SESSIONKEY} from '../auth/souper-auth.service';
 import {switchMap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
@@ -13,7 +13,7 @@ export class StuffService {
 
   firestorePath: string;
 
-  constructor(private firestore: AngularFirestore, private authService: SouperAuthService) {
+  constructor(private firestore: AngularFirestore) {
     const groupId = localStorage.getItem(GROUPID_SESSIONKEY);
     this.firestorePath = `stuffs/${groupId}/groupStuffs`;
 

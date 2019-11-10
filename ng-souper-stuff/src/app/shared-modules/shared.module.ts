@@ -11,13 +11,11 @@ import {AngularFireAuth} from '@angular/fire/auth';
     MaterialModule,
     FlexLayoutModule
   ],
-  declarations: [
-  ],
   exports: [
     CommonModule,
     FormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [
     AngularFireAuth
