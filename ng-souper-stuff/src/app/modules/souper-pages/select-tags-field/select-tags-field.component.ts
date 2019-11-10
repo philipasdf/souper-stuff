@@ -15,7 +15,6 @@ export class SelectTagsFieldComponent implements OnInit {
 
   @Input() placeholderText = '';
   @Input() selectedTags$: BehaviorSubject<string[]>;
-  @Input() disableNewTags = false;
   @Input() readonly = false;
   @Input() showBasicTags = true;
 
@@ -42,19 +41,17 @@ export class SelectTagsFieldComponent implements OnInit {
   }
 
   addNewTag(event: MatChipInputEvent) {
-    if (!this.disableNewTags) {
-      const input = event.input;
-      const value = event.value;
+    const input = event.input;
+    const value = event.value;
 
-      if ((value || '').trim()) {
-        const currentTags: string[] = this.selectedTags$.getValue();
-        this.selectedTags$.next([...currentTags, value]);
-      }
-      if (input) {
-        input.value = '';
-      }
-      this.tagInputControl.setValue(null);
+    if ((value || '').trim()) {
+      const currentTags: string[] = this.selectedTags$.getValue();
+      this.selectedTags$.next([...currentTags, value]);
     }
+    if (input) {
+      input.value = '';
+    }
+    this.tagInputControl.setValue(null);
   }
 
   onSelectBasicTag(tag) {

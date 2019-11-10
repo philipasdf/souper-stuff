@@ -63,5 +63,6 @@ export class StuffListElementComponent implements OnInit {
     console.log(this.stuff);
     this.groupService.createTags(currentTags);
     this.stuffService.updateStuff(this.stuff);
+    this.onToggleEditMode();
   }
 }
