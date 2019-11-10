@@ -23,7 +23,7 @@ export class SouperPagesComponent implements OnInit {
     this.authService.signOut();
   }
 
-  onClickLogo() {
+  onNavigateToMain() {
     this.router.navigate(['main/list']);
   }
 }
