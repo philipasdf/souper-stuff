@@ -1,0 +1,11 @@
+.item-container {
+  padding-top: 1em;
+}
+
+.item-title{
+ font-weight: bold;
+}
+
+.item-edit-container {
+  padding: 1em 2em 1em 1em;
+}

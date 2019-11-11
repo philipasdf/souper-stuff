@@ -5,7 +5,7 @@
                        [placeholderText]="'enter some tags or choose basic tags from above'"></app-select-tags-field>
 
 <!-- stuff list -->
-<mat-list>
+<mat-list class="stuffs-list-container">
   <app-stuff-list-element *ngFor="let stuff of stuffs | async" [stuff]="stuff"></app-stuff-list-element>
 </mat-list>
 

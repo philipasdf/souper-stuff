@@ -8,7 +8,12 @@ import {GroupService} from '../../../services/group/group.service';
 
 @Component({
   selector: 'app-add-stuff-page',
-  templateUrl: './add-stuff-page.component.html'
+  templateUrl: './add-stuff-page.component.html',
+  styles: [`
+    .label-like-mat {
+      color: #E13972;
+    }
+  `]
 })
 export class AddStuffPageComponent implements OnInit {
 
@@ -24,6 +29,7 @@ export class AddStuffPageComponent implements OnInit {
   });
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  rating = 0;
 
   constructor(private stuffService: StuffService,
               private groupService: GroupService,
@@ -31,6 +37,10 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onRatingsUpdated(rating) {
+    this.rating = rating;
   }
 
   onSubmit() {
@@ -42,7 +52,7 @@ export class AddStuffPageComponent implements OnInit {
       active: true,
       name: this.formGroup.get('name').value,
       price: this.formGroup.get('price').value,
-      rating: 0,
+      rating: this.rating,
       note: this.formGroup.get('note').value,
       count: 1,
       tags: tagObject, // look into firestore console to see the structure

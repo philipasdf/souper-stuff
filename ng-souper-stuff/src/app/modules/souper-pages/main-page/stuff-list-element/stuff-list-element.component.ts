@@ -55,6 +55,10 @@ export class StuffListElementComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  onRatingsUpdated(rating) {
+    this.stuff.rating = rating;
+  }
+
   onSave() {
     const tagObject = {};
     const currentTags: string[] = this.selectedTags$.getValue();

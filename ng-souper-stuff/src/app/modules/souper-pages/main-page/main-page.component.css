@@ -9,3 +9,7 @@
   left: auto;
   position: fixed;
 }
+
+.stuffs-list-container {
+  padding-bottom: 40px; /* prevent add-button overlapping stuff button */
+}

@@ -1,9 +1,17 @@
-<mat-list-item>
-  <span>{{ stuff.name }}</span>
-  <span fxFlex></span>
-  <mat-icon class="icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
+<mat-list-item class="item-container">
+  <div fxLayout="row" class="width-100">
+    <div fxFlex="90">
+      <div class="item-title">{{ stuff.name }}</div>
+      <!-- star rating field -->
+      <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+    </div>
+    <div fxFlex>
+      <mat-icon class="icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
+    </div>
+  </div>
+
 </mat-list-item>
-<div [@expandElementAnimation]="expandView ? 'open': 'closed'">
+<div class="item-edit-container" [@expandElementAnimation]="expandView ? 'open': 'closed'">
   <form>
 
     <div fxLayout="row" fxLayoutGap="10px">

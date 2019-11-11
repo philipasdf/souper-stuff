@@ -11,6 +11,9 @@
     <mat-icon matSuffix>euro</mat-icon>
   </mat-form-field>
 
+  <!-- star rating field -->
+  <span class="label-like-mat">rating </span><app-star-rating-field [rating]="rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+
   <mat-form-field class="width-100">
     <textarea matInput placeholder="note" formControlName="note"></textarea>
   </mat-form-field>
