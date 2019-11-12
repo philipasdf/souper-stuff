@@ -39,19 +39,41 @@
     </div>
 
     <!-- note field -->
-  <mat-form-field *ngIf="stuff.note || editMode" class="width-100">
-    <textarea matInput
-              placeholder="note"
-              name="note"
-              [readonly]="!editMode"
-              [(ngModel)]="stuff.note"></textarea>
-  </mat-form-field>
+    <mat-form-field *ngIf="stuff.note || editMode" class="width-100">
+      <textarea matInput
+                placeholder="note"
+                name="note"
+                [readonly]="!editMode"
+                [(ngModel)]="stuff.note"></textarea>
+    </mat-form-field>
     <!-- tags field -->
     <app-select-tags-field [selectedTags$]="selectedTags$"
                            [showBasicTags]="false"
                            [readonly]="!editMode">
 
     </app-select-tags-field>
+
+    <!-- adress fields -->
+    <div>
+      <mat-form-field *ngIf="stuff.publicStation || editMode" class="width-100">
+        <mat-label>public station</mat-label>
+        <input matInput
+               name="publicStation"
+               placeholder="public station"
+               type="text"
+               [readonly]="!editMode"
+               [(ngModel)]="stuff.publicStation">
+      </mat-form-field>
+      <mat-form-field *ngIf="stuff.street || editMode" class="width-100">
+        <mat-label>street</mat-label>
+        <input matInput
+               name="street"
+               placeholder="street"
+               type="text"
+               [readonly]="!editMode"
+               [(ngModel)]="stuff.street">
+      </mat-form-field>
+    </div>
 
     <!-- last time updated field
   <div *ngIf="stuff.lastUpdated">

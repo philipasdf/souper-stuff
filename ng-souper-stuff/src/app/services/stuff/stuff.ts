@@ -8,4 +8,6 @@ export class Stuff {
   price?: number;
   lastUpdated: any; // Firebase Timestamp
   tags: any; // Firebase Map
+  publicStation?: string;
+  street?: string;
 }

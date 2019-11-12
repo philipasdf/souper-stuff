@@ -9,11 +9,7 @@ import {GroupService} from '../../../services/group/group.service';
 @Component({
   selector: 'app-add-stuff-page',
   templateUrl: './add-stuff-page.component.html',
-  styles: [`
-    .label-like-mat {
-      color: #E13972;
-    }
-  `]
+  styleUrls: ['./add-stuff-page.component.css']
 })
 export class AddStuffPageComponent implements OnInit {
 
@@ -22,9 +18,9 @@ export class AddStuffPageComponent implements OnInit {
     price: new FormControl(),
     note: new FormControl(),
     addressGroup: new FormGroup({
+      publicStation: new FormControl(),
       street: new FormControl(),
-      city: new FormControl(),
-      publicStation: new FormControl()
+      city: new FormControl()
     })
   });
 
@@ -56,7 +52,9 @@ export class AddStuffPageComponent implements OnInit {
       note: this.formGroup.get('note').value,
       count: 1,
       tags: tagObject, // look into firestore console to see the structure
-      lastUpdated: new Date()
+      lastUpdated: new Date(),
+      publicStation: this.formGroup.get('addressGroup').get('publicStation').value,
+      street: this.formGroup.get('addressGroup').get('street').value,
     };
 
     this.stuffService.createStuff(newStuff);

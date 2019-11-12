@@ -12,11 +12,24 @@
   </mat-form-field>
 
   <!-- star rating field -->
-  <span class="label-like-mat">rating </span><app-star-rating-field [rating]="rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+  <span class="label">rating </span><app-star-rating-field [rating]="rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
 
   <mat-form-field class="width-100">
     <textarea matInput placeholder="note" formControlName="note"></textarea>
   </mat-form-field>
+
+  <!-- adress group -->
+  <div formGroupName="addressGroup">
+    adress
+    <mat-form-field class="width-100">
+      <mat-label>public station</mat-label>
+      <input matInput placeholder="public station" type="text" formControlName="publicStation">
+    </mat-form-field>
+    <mat-form-field class="width-100">
+      <mat-label>street</mat-label>
+      <input matInput placeholder="street" type="text" formControlName="street">
+    </mat-form-field>
+  </div>
 
   <button mat-flat-button color="primary"
           [disabled]="!formGroup.valid"
