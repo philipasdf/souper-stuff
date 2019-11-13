@@ -3,7 +3,6 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestor
 import {GROUPID_SESSIONKEY} from '../auth/souper-auth.service';
 import {Observable} from 'rxjs';
 import {Tag} from './tag';
-import {User} from '../auth/user';
 
 @Injectable({providedIn: 'root'})
 export class GroupService {

@@ -53,6 +53,7 @@ export class StuffService {
       console.log('stuff was updated');
     }).catch(error => {
       console.error('error when updating stuff', stuff);
+      console.error(error);
     });
   }
 

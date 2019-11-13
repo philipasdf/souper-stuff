@@ -5,7 +5,7 @@ export class Stuff {
   note: string;
   rating: number;
   count: number;
-  price?: number;
+  price?: string;
   lastUpdated: any; // Firebase Timestamp
   tags: any; // Firebase Map
   publicStation?: string;

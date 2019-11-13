@@ -13,7 +13,15 @@
 </mat-list-item>
 <div class="item-edit-container" [@expandElementAnimation]="expandView ? 'open': 'closed'">
   <form>
-
+    <!-- name field -->
+    <mat-form-field *ngIf="editMode" class="width-100">
+      <mat-label>name</mat-label>
+      <input matInput
+             name="name"
+             placeholder="name"
+             type="text"
+             [(ngModel)]="stuff.name">
+    </mat-form-field>
     <div fxLayout="row" fxLayoutGap="10px">
       <!-- count field -->
       <mat-form-field *ngIf="stuff.count || editMode" class="width-50" appearance="outline">
@@ -31,7 +39,7 @@
         <input matInput
                name="price"
                placeholder="price"
-               type="number"
+               type="text"
                [readonly]="!editMode"
                [(ngModel)]="stuff.price">
         <mat-icon matSuffix>euro</mat-icon>
@@ -39,7 +47,7 @@
     </div>
 
     <!-- note field -->
-    <mat-form-field *ngIf="stuff.note || editMode" class="width-100">
+    <mat-form-field class="width-100">
       <textarea matInput
                 placeholder="note"
                 name="note"
