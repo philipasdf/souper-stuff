@@ -12,16 +12,21 @@ import {StuffImg} from '../../../../services/images/stuff-img';
   styleUrls: ['./stuff-list-element.component.css'],
   animations: [
     trigger('expandElementAnimation', [
-      state('open', style({
-        opacity: 1,
-        height: '*'
-      })),
-      state('closed', style({
-        opacity: 0,
-        height: 0
-      })),
-      transition('open <=> closed', [
-        animate('250ms ease-out')
+      transition(':enter', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-200px)'
+        }),
+        animate('250ms ease-out', style({
+          opacity: 1,
+          transform: 'none'
+        })),
+      ]),
+      transition(':leave', [
+        animate('250ms ease-out', style({
+          opacity: 0,
+          transform: 'translateX(200px)'
+        }))
       ])
     ])
   ]

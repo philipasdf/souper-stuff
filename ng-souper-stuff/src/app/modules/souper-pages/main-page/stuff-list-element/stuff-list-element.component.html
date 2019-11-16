@@ -6,7 +6,7 @@
       <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
     </div>
     <div fxFlex>
-      <mat-icon class="icon" (click)="onToggleExpandView()">keyboard_arrow_down</mat-icon>
+      <mat-icon class="icon" (click)="onToggleExpandView()">chevron_right</mat-icon>
     </div>
   </div>
 
@@ -17,7 +17,7 @@ Attention! This codeline here would overlap the next stuff-list-element because 
 Then problem is, that the buttons of the overlapped element wont work
 <div class="item-edit-container" [@expandElementAnimation]="expandView ? 'open': 'closed'">
 -->
-<div class="item-edit-container" *ngIf="expandView">
+<div class="item-edit-container" *ngIf="expandView" @expandElementAnimation>
 
   <app-images-field *ngIf="stuff.images || editMode"
                     [existingFiles]="stuff.images"
