@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Stuff} from '../../../../services/stuff/stuff';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StuffService} from '../../../../services/stuff/stuff.service';
 import {BehaviorSubject} from 'rxjs';
 import {GroupService} from '../../../../services/group/group.service';
+import {StuffImg} from '../../../../services/images/stuff-img';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -53,6 +52,15 @@ export class StuffListElementComponent implements OnInit {
 
   onToggleEditMode() {
     this.editMode = !this.editMode;
+  }
+
+  onFileUploaded(img: StuffImg) {
+    if (!this.stuff.images) {
+      this.stuff.images = [img];
+    }
+    if (!this.stuff.images.some((s: StuffImg) => s.path === img.path)) {
+      this.stuff.images.push(img);
+    }
   }
 
   onRatingsUpdated(rating) {

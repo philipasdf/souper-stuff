@@ -1,0 +1,22 @@
+<div  fxLayout="row" fxLayoutAlign="center none">
+  <ng-container *ngIf="downloadURL | async; else elseBlock">
+    <img src="{{downloadURL | async}}">
+  </ng-container>
+  <ng-template #elseBlock>
+    <label>
+      <input type="file" accept="image/*" (change)="onUploadFile($event.target.files)" capture hidden>
+      <img class="add-photo-icon" src="{{addPhotoIconUrl}}">
+    </label>
+  </ng-template>
+</div>
+
+
+<div *ngIf="percentage | async as p">
+  <progress [value]="p" max="100" class="width-100"></progress>
+</div>
+<div *ngIf="snapshot | async as s">
+  <button (click)="task.cancel()" *ngIf="isUploadActive(s)">Cancel</button>
+</div>
+
+<br>
+

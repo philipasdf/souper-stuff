@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StuffListElementComponent } from './main-page/stuff-list-element/stuff-list-element.component';
 import { SelectTagsFieldComponent } from './select-tags-field/select-tags-field.component';
 import { StarRatingFieldComponent } from './star-rating-field/star-rating-field.component';
+import { ImagesFieldComponent } from './images-field/images-field.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { StarRatingFieldComponent } from './star-rating-field/star-rating-field.
     StuffListElementComponent,
     SelectTagsFieldComponent,
     StarRatingFieldComponent,
+    ImagesFieldComponent,
   ],
   imports: [
     SharedModule,

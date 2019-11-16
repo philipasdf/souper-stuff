@@ -1,0 +1,11 @@
+progress::-webkit-progress-value {
+  transition: width 100ms ease;
+}
+
+img {
+  height: 18em;
+}
+
+.add-photo-icon {
+  height: 10em;
+}

@@ -1,3 +1,5 @@
+import {StuffImg} from '../images/stuff-img';
+
 export class Stuff {
   id?: string;
   active: boolean;
@@ -10,4 +12,5 @@ export class Stuff {
   tags: any; // Firebase Map
   publicStation?: string;
   street?: string;
+  images?: StuffImg[];
 }

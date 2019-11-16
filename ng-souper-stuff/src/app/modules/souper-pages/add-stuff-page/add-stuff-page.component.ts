@@ -5,6 +5,7 @@ import {StuffService} from '../../../services/stuff/stuff.service';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {GroupService} from '../../../services/group/group.service';
+import {StuffImg} from '../../../services/images/stuff-img';
 
 @Component({
   selector: 'app-add-stuff-page',
@@ -24,6 +25,7 @@ export class AddStuffPageComponent implements OnInit {
     })
   });
 
+  images: StuffImg[] = [];
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
   rating = 0;
 
@@ -33,6 +35,12 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onFileUploaded(img: StuffImg) {
+    if (!this.images.some((s: StuffImg) => s.path === img.path)) {
+      this.images.push(img);
+    }
   }
 
   onRatingsUpdated(rating) {
@@ -55,8 +63,10 @@ export class AddStuffPageComponent implements OnInit {
       lastUpdated: new Date(),
       publicStation: this.formGroup.get('addressGroup').get('publicStation').value,
       street: this.formGroup.get('addressGroup').get('street').value,
+      images: this.images
     };
 
+    console.log(newStuff);
     this.stuffService.createStuff(newStuff);
     this.groupService.createTags(currentTags);
     this.router.navigate(['main/list']);

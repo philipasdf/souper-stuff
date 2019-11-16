@@ -11,7 +11,18 @@
   </div>
 
 </mat-list-item>
+
+<!--
+Attention! This codeline here would overlap the next stuff-list-element because the div hast height 0 but is still there.
+Then problem is, that the buttons of the overlapped element wont work
 <div class="item-edit-container" [@expandElementAnimation]="expandView ? 'open': 'closed'">
+-->
+<div class="item-edit-container" *ngIf="expandView">
+
+  <app-images-field *ngIf="stuff.images || editMode"
+                    [existingFiles]="stuff.images"
+                    (fileUploaded)="onFileUploaded($event)"></app-images-field>
+
   <form>
     <!-- name field -->
     <mat-form-field *ngIf="editMode" class="width-100">
@@ -47,7 +58,7 @@
     </div>
 
     <!-- note field -->
-    <mat-form-field class="width-100">
+    <mat-form-field class="width-100" *ngIf="stuff.note || editMode">
       <textarea matInput
                 placeholder="note"
                 name="note"
