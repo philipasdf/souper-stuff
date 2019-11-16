@@ -18,7 +18,7 @@ export class SelectTagsFieldComponent implements OnInit {
   @Input() readonly = false;
   @Input() showBasicTags = true;
 
-  basicTags = ['food', 'bars', 'test'];
+  basicTags = ['food', 'vegetarian', 'test'];
   allAvailableTags = [];
   filteredTags$: Observable<string[]>;
   tagInputControl = new FormControl();

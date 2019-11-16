@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -19,7 +20,8 @@ export const firebaseConfig = environment.firebaseConfig;
     SouperPagesModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
