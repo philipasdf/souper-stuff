@@ -17,24 +17,22 @@ export class StuffService {
     const groupId = localStorage.getItem(GROUPID_SESSIONKEY);
     this.firestorePath = `stuffs/${groupId}/groupStuffs`;
 
-    this.stuffs$ = this.searchTags$.pipe(
-      switchMap((tags: string[]) => {
-          if (tags.length > 0) {
-            return this.firestore.collection(this.firestorePath, (ref) => {
+    this.searchTags$.subscribe((tags: string[]) => {
+      if (tags.length > 0) {
+        this.stuffs$ = this.firestore.collection(this.firestorePath, (ref) => {
 
-              let query = ref.where('active', '==', true); // workaround to get query object from ref
+          let query = ref.where('active', '==', true); // workaround to get query object from ref
 
-              tags.forEach(tag => {
-                query = query.where(`tags.${tag}`, '==', true); // because cannot query multiple array-contains
-              });
-              return query;
+          tags.forEach(tag => {
+            query = query.where(`tags.${tag}`, '==', true); // because cannot query multiple array-contains
+          });
+          return query;
 
-            }).valueChanges();
-          } else {
-            return of([]);
-          }
-        }
-      ));
+        }).valueChanges();
+      } else {
+        this.stuffs$ = of([]);
+      }
+    });
   }
 
   async createStuff(stuff: Stuff) {
