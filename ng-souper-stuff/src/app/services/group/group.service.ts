@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
-import {GROUPID_SESSIONKEY} from '../auth/souper-auth.service';
 import {Observable} from 'rxjs';
 import {Tag} from './tag';
+import {SouperSessionService} from '../session/souper-session.service';
 
 @Injectable({providedIn: 'root'})
 export class GroupService {
@@ -12,8 +12,8 @@ export class GroupService {
 
   firebasePath: string;
 
-  constructor(private firestore: AngularFirestore) {
-    const groupId = localStorage.getItem(GROUPID_SESSIONKEY);
+  constructor(private firestore: AngularFirestore, private sessionService: SouperSessionService) {
+    const groupId = this.sessionService.getGroupId();
     this.firebasePath = `groups/${groupId}`;
     this.currentGroup$ = this.firestore.doc(this.firebasePath).valueChanges();
     this.currentGroupTags$ = this.firestore.collection(this.firebasePath + `/tags`).valueChanges();

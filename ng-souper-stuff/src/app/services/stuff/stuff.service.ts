@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Stuff} from './stuff';
 import {Observable, of, Subject} from 'rxjs';
-import {GROUPID_SESSIONKEY} from '../auth/souper-auth.service';
+import {SouperSessionService} from '../session/souper-session.service';
 
 @Injectable({providedIn: 'root'})
 export class StuffService {
@@ -12,8 +12,8 @@ export class StuffService {
 
   firestorePath: string;
 
-  constructor(private firestore: AngularFirestore) {
-    const groupId = localStorage.getItem(GROUPID_SESSIONKEY);
+  constructor(private firestore: AngularFirestore, private sessionService: SouperSessionService) {
+    const groupId = this.sessionService.getGroupId();
     this.firestorePath = `stuffs/${groupId}/groupStuffs`;
 
     this.searchTags$.subscribe((tags: string[]) => {

@@ -10,6 +10,7 @@ import { StuffListElementComponent } from './main-page/stuff-list-element/stuff-
 import { SelectTagsFieldComponent } from './select-tags-field/select-tags-field.component';
 import { StarRatingFieldComponent } from './star-rating-field/star-rating-field.component';
 import { ImagesFieldComponent } from './images-field/images-field.component';
+import { InfoPageComponent } from './info-page/info-page.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ImagesFieldComponent } from './images-field/images-field.component';
     SelectTagsFieldComponent,
     StarRatingFieldComponent,
     ImagesFieldComponent,
+    InfoPageComponent,
   ],
   imports: [
     SharedModule,

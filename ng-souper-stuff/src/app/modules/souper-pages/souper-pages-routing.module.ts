@@ -5,12 +5,14 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {SouperPagesComponent} from './souper-pages.component';
 import {AddStuffPageComponent} from './add-stuff-page/add-stuff-page.component';
 import {AuthGuard} from '../../guards/auth.guard';
+import {InfoPageComponent} from './info-page/info-page.component';
 
 const routes: Routes = [
   { path: '',
     component: SouperPagesComponent,
     children: [
       { path: 'login', component: LoginPageComponent },
+      { path: 'info', component: InfoPageComponent },
     ]
   },
   {

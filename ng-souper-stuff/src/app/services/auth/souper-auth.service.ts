@@ -6,8 +6,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {switchMap} from 'rxjs/operators';
 import { auth } from 'firebase/app';
+import {SouperSessionService} from '../session/souper-session.service';
 
-export const GROUPID_SESSIONKEY = 'souper-stuff-user-group-id';
 
 @Injectable({ providedIn: 'root' })
 export class SouperAuthService {
@@ -16,7 +16,8 @@ export class SouperAuthService {
 
   constructor(private router: Router,
               private fireAuth: AngularFireAuth,
-              private firestore: AngularFirestore) {
+              private firestore: AngularFirestore,
+              private sessionService: SouperSessionService) {
     this.user$ = this.fireAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -28,11 +29,14 @@ export class SouperAuthService {
     );
 
     this.user$.subscribe(user => {
+      console.log('firebase user', user);
       if (user) {
         if (user.groupId === null || user.groupId === undefined) {
           user.groupId = ''; // currently I have to set it in firebase console
+          this.router.navigate([`info`]);
         } else {
-          localStorage.setItem(GROUPID_SESSIONKEY, `${user.groupId}`);
+          this.sessionService.setGroupId(user.groupId);
+          this.router.navigate([`main/list`]);
         }
       }
       console.log(localStorage);
@@ -42,7 +46,6 @@ export class SouperAuthService {
   async googleSignin() {
     const credential = await this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     this.updateUserCredential(credential.user);
-    return this.router.navigate([`main/list`]);
   }
 
   async signOut() {

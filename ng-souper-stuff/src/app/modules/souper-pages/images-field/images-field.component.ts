@@ -1,9 +1,9 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 import {finalize, tap} from 'rxjs/operators';
 import {StuffImg} from '../../../services/images/stuff-img';
-import {GROUPID_SESSIONKEY} from '../../../services/auth/souper-auth.service';
+import {SouperSessionService} from '../../../services/session/souper-session.service';
 
 @Component({
   selector: 'app-images-field',
@@ -25,7 +25,7 @@ export class ImagesFieldComponent implements OnInit {
   snapshot: Observable<any>;
   downloadURL: Observable<string>;
 
-  constructor(private firestorage: AngularFireStorage) { }
+  constructor(private firestorage: AngularFireStorage, private sessionService: SouperSessionService) { }
 
   ngOnInit() {
     console.log(this.existingFiles);
@@ -45,7 +45,7 @@ export class ImagesFieldComponent implements OnInit {
       return;
     }
 
-    const groupId = localStorage.getItem(GROUPID_SESSIONKEY);
+    const groupId = this.sessionService.getGroupId();
     const storagePath = `${groupId}/${new Date().getTime()}_${file.name}`;
 
     this.task        = this.firestorage.upload(storagePath, file);

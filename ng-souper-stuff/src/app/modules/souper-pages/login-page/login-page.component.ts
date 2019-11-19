@@ -11,11 +11,6 @@ export class LoginPageComponent implements OnInit {
   constructor(private router: Router, private authService: SouperAuthService ) { }
 
   ngOnInit() {
-    this.authService.user$.subscribe(user => {
-      if (user != null) {
-        this.router.navigate(['main/list']);
-      }
-    });
   }
 
   onSignIn() {
