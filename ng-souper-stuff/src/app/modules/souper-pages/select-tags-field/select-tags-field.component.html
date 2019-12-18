@@ -12,7 +12,7 @@
       {{tag}}
       <mat-icon *ngIf="!readonly" matChipRemove>cancel</mat-icon>
     </mat-chip>
-    <!-- matChipInputAddOnBlur = true because KeyCodes are different in chrome mobile -->
+    <!-- matChipInputAddOnBlur = false causes mobile so switch input fields instead of confirm seperatorKeyCodes (codes are different)-->
     <input #tagInput
            matInput
            placeholder="{{placeholderText}}"
@@ -20,7 +20,7 @@
            [formControl]="tagInputControl"
            [matAutocomplete]="auto"
            [matChipInputFor]="chipList"
-           [matChipInputAddOnBlur]="true"
+           [matChipInputAddOnBlur]="addOnBlur"
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            (matChipInputTokenEnd)="addNewTag($event)">
   </mat-chip-list>

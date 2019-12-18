@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {GroupService} from '../../../services/group/group.service';
 import {Tag} from '../../../services/group/tag';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
@@ -17,8 +17,9 @@ export class SelectTagsFieldComponent implements OnInit {
   @Input() selectedTags$: BehaviorSubject<string[]>;
   @Input() readonly = false;
   @Input() showBasicTags = true;
+  @Input() addOnBlur;
 
-  basicTags = ['food', 'vegetarian', 'test'];
+  basicTags = ['food', 'vegetarian', 'instant', 'takeaway', 'cook', 'cheese'];
   allAvailableTags = [];
   filteredTags$: Observable<string[]>;
   tagInputControl = new FormControl();
