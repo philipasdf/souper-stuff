@@ -2,8 +2,13 @@ progress::-webkit-progress-value {
   transition: width 100ms ease;
 }
 
-img {
+.photo-container {
   height: 18em;
+}
+
+.photo-container img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .add-photo-icon {

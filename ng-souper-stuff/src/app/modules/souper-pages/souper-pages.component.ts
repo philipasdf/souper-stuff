@@ -9,10 +9,15 @@ import {Router} from '@angular/router';
 })
 export class SouperPagesComponent implements OnInit {
 
+  readonly maxIconNumber = 3;
+  randomIcon = 'assets/logo/1.jpg';
+
   constructor(private authService: SouperAuthService, private router: Router) {
   }
 
   ngOnInit() {
+    const randomNumber = Math.floor(Math.random() * this.maxIconNumber + 1);
+    this.randomIcon = `assets/logo/${randomNumber}.JPG`;
   }
 
   get user() {

@@ -1,5 +1,11 @@
 .souper-pages-container {
-  padding: 5%;
+  padding: 2.5%;
+}
+
+.souper-icon {
+  border-radius: 34%;
+  height: 55%;
+  border: 2px solid white;
 }
 
 .avatar {
@@ -8,5 +14,5 @@
 }
 
 .app-title {
-  margin-left: 1em;
+  margin-left: 0.5em;
 }

@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <mat-icon (click)="onNavigateToMain()">fireplace</mat-icon>
+  <img class="souper-icon" src="{{randomIcon}}">
   <span fxFlex class="app-title" (click)="onNavigateToMain()">SOUPER STUFF</span>
   <img *ngIf="user | async as user"
        class="avatar"
