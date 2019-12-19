@@ -6,18 +6,13 @@
       <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
     </div>
     <div fxFlex>
-      <mat-icon class="icon" (click)="onToggleExpandView()">chevron_right</mat-icon>
+      <mat-icon class="icon" (click)="onToggleExpandView()">{{getExpandIconName()}}</mat-icon>
     </div>
   </div>
 
 </mat-list-item>
 
-<!--
-Attention! This codeline here would overlap the next stuff-list-element because the div hast height 0 but is still there.
-Then problem is, that the buttons of the overlapped element wont work
-<div class="item-edit-container" [@expandElementAnimation]="expandView ? 'open': 'closed'">
--->
-<div class="item-edit-container" *ngIf="expandView" @expandElementAnimation>
+<div class="item-edit-container" *ngIf="expandView" @expandAnimation>
 
   <app-images-field *ngIf="stuff.images || editMode"
                     [existingFiles]="stuff.images"

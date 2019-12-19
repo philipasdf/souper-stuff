@@ -11,22 +11,13 @@ import {StuffImg} from '../../../../services/images/stuff-img';
   templateUrl: './stuff-list-element.component.html',
   styleUrls: ['./stuff-list-element.component.css'],
   animations: [
-    trigger('expandElementAnimation', [
+    trigger('expandAnimation', [
       transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'translateX(-200px)'
-        }),
-        animate('250ms ease-out', style({
-          opacity: 1,
-          transform: 'none'
-        })),
+        style({ opacity: 0, height: '15px' }),
+        animate('350ms', style({ opacity: 1, height: '*' })),
       ]),
       transition(':leave', [
-        animate('250ms ease-out', style({
-          opacity: 0,
-          transform: 'translateX(200px)'
-        }))
+        animate('250ms', style({opacity: 0, height: '0px'}))
       ])
     ])
   ]
@@ -49,6 +40,10 @@ export class StuffListElementComponent implements OnInit {
       tagArray.push(key);
     }
     this.selectedTags$.next(tagArray);
+  }
+
+  getExpandIconName() {
+    return this.expandView ? 'expand_less' : 'expand_more';
   }
 
   onToggleExpandView() {
