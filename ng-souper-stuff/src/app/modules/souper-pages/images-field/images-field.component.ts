@@ -35,9 +35,9 @@ export class ImagesFieldComponent implements OnInit {
     }
   }
 
-  onUploadFile(event: FileList) {
+  onUploadFile($event) {
     // single upload to KISS
-    const file = event.item(0);
+    const file = $event.target.files[0];
 
     // only images
     if (file.type.split('/')[0] !== 'image') {
@@ -45,8 +45,8 @@ export class ImagesFieldComponent implements OnInit {
       return;
     }
 
-    const groupId = this.sessionService.getGroupId();
-    const storagePath = `${groupId}/${new Date().getTime()}_${file.name}`;
+    const storagePath = `${new Date().getTime()}_${file.name}`;
+
 
     this.task        = this.firestorage.upload(storagePath, file);
     this.percentage  = this.task.percentageChanges();
@@ -58,7 +58,6 @@ export class ImagesFieldComponent implements OnInit {
             fileSize: snapshot.totalBytes
           };
           this.fileUploaded.emit(result); // will be emittet two times!
-          // this.db.doc('stuffIdundso').collection('/photos').add(  ) ;
         }
       })
     );

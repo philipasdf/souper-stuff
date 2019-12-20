@@ -5,7 +5,7 @@
   <ng-template #elseBlock>
     <label>
 <!-- accept="image/*" opens on mobile the camera, but you cannot access image gallery-->
-      <input type="file" (change)="onUploadFile($event.target.files)" capture hidden>
+      <input type="file" (change)="onUploadFile($event)" capture hidden>
       <img class="add-photo-icon" src="{{addPhotoIconUrl}}">
     </label>
   </ng-template>
