@@ -8,6 +8,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {SouperAdminModule} from './modules/souper-admin/souper-admin.module';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -18,6 +19,7 @@ export const firebaseConfig = environment.firebaseConfig;
     BrowserModule,
     AppRoutingModule,
     SouperPagesModule,
+    SouperAdminModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
