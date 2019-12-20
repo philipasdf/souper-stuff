@@ -5,8 +5,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './star-rating-field.component.html',
   styles: [`
     ::ng-deep .mat-icon{
-      font-size: 1.65em !important;
-    }`]
+      font-size: 1.5em !important;
+    }
+    ::ng-deep .mat-icon-button {
+      width: 25px;
+    }
+  `]
 })
 export class StarRatingFieldComponent implements OnInit {
 

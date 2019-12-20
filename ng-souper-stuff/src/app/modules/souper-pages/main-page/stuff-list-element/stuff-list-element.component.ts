@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Stuff} from '../../../../services/stuff/stuff';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {StuffService} from '../../../../services/stuff/stuff.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {GroupService} from '../../../../services/group/group.service';
 import {StuffImg} from '../../../../services/images/stuff-img';
+import {ImgService} from '../../../../services/images/img.service';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -26,15 +27,18 @@ export class StuffListElementComponent implements OnInit {
 
   @Input() stuff: Stuff;
 
+  thumbnailUrl: Observable<string>;
   expandView = false;
   editMode = false;
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(private stuffService: StuffService,
-              private groupService: GroupService) { }
+              private groupService: GroupService,
+              private imgService: ImgService) { }
 
   ngOnInit() {
+    this.initThumbnail();
     const tagArray: string[] = [];
     for (const key in this.stuff.tags) {
       tagArray.push(key);
@@ -76,5 +80,11 @@ export class StuffListElementComponent implements OnInit {
     this.groupService.createTags(currentTags);
     this.stuffService.updateStuff(this.stuff);
     this.onToggleEditMode();
+  }
+
+  private initThumbnail() {
+    if (this.stuff.images) {
+      this.thumbnailUrl = this.imgService.getImgSize200(this.stuff.images[0]);
+    }
   }
 }

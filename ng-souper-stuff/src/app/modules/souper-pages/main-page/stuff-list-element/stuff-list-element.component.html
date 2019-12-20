@@ -1,16 +1,16 @@
-<mat-list-item class="item-container">
-  <div fxLayout="row" class="width-100">
-    <div fxFlex="90">
-      <div class="item-title">{{ stuff.name }}</div>
-      <!-- star rating field -->
-      <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
-    </div>
-    <div fxFlex>
-      <mat-icon class="icon" (click)="onToggleExpandView()">{{getExpandIconName()}}</mat-icon>
-    </div>
+<div class="item-preview" fxLayout="row">
+  <div *ngIf="(thumbnailUrl | async) && !expandView" fxFlex="125px">
+    <img class="full" src="{{thumbnailUrl | async}}">
   </div>
-
-</mat-list-item>
+  <div fxFlex class="item-preview-content">
+    <div class="item-title">{{ stuff.name }}</div>
+    <!-- star rating field -->
+    <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+  </div>
+  <div fxFlex="nogrow" class="item-preview-action">
+    <mat-icon class="icon" (click)="onToggleExpandView()">{{getExpandIconName()}}</mat-icon>
+  </div>
+</div>
 
 <div class="item-edit-container" *ngIf="expandView" @expandAnimation>
 
@@ -104,5 +104,4 @@
   </form>
 </div>
 
-<br>
 <mat-divider></mat-divider>

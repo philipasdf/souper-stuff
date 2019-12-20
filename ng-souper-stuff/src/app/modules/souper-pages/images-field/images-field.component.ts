@@ -29,7 +29,7 @@ export class ImagesFieldComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.existingFiles);
-    if (this.existingFiles !== undefined && this.existingFiles.length > 0) {
+    if (this.existingFiles !== undefined && this.existingFiles !== null && this.existingFiles.length > 0) {
       // single upload to KISS
       this.downloadURL = this.fetchDownloadURL(this.existingFiles[0].path);
     }

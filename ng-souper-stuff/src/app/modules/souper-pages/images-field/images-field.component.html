@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center none">
   <div class="photo-container" *ngIf="downloadURL | async; else elseBlock">
-    <img src="{{downloadURL | async}}">
+    <img class="full" src="{{downloadURL | async}}">
   </div>
   <ng-template #elseBlock>
     <label>

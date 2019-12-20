@@ -6,9 +6,9 @@
                        [placeholderText]="'enter some tags or choose basic tags from above'"></app-select-tags-field>
 
 <!-- stuff list -->
-<mat-list class="stuffs-list-container">
+<div class="stuffs-list-container">
   <app-stuff-list-element *ngFor="let stuff of stuffs | async" [stuff]="stuff"></app-stuff-list-element>
-</mat-list>
+</div>
 
 <!-- add stuff button -->
 <button class="add-button" mat-fab (click)="onAddStuff()"><mat-icon>add</mat-icon></button>

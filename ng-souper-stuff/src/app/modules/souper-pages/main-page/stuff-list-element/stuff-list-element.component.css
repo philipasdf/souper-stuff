@@ -1,11 +1,24 @@
-.item-container {
-  padding-top: 1em;
+.item-preview {
+  max-height: 90px;
+  height: fit-content;
+}
+
+.item-preview-content {
+  padding: 15px;
+}
+
+.item-preview-action {
+  padding: 15px 5px 0 0;
 }
 
 .item-title{
- font-weight: bold;
+  font-weight: bold;
 }
 
 .item-edit-container {
-  padding: 1em 2em 1em 1em;
+  padding: 0 2em 1em 1em;
+}
+
+img {
+  object-fit: cover;
 }
