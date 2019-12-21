@@ -16,6 +16,11 @@ export class ImgService {
   constructor(private firestorage: AngularFireStorage) {
   }
 
+  getImgSize500(originalPath: string): Observable<string> {
+    const path = this.convertPath(originalPath, this.suffix500);
+    return this.firestorage.ref(path).getDownloadURL();
+  }
+
   getImgSize200(image: StuffImg): Observable<string> {
     const path = this.convertPath(image.path, this.suffix200);
     return this.firestorage.ref(path).getDownloadURL();

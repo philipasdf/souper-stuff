@@ -3,7 +3,7 @@ import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 import {finalize, tap} from 'rxjs/operators';
 import {StuffImg} from '../../../services/images/stuff-img';
-import {SouperSessionService} from '../../../services/session/souper-session.service';
+import {ImgService} from '../../../services/images/img.service';
 
 @Component({
   selector: 'app-images-field',
@@ -25,13 +25,13 @@ export class ImagesFieldComponent implements OnInit {
   snapshot: Observable<any>;
   downloadURL: Observable<string>;
 
-  constructor(private firestorage: AngularFireStorage, private sessionService: SouperSessionService) { }
+  constructor(private firestorage: AngularFireStorage, private imgService: ImgService) { }
 
   ngOnInit() {
     console.log(this.existingFiles);
     if (this.existingFiles !== undefined && this.existingFiles !== null && this.existingFiles.length > 0) {
       // single upload to KISS
-      this.downloadURL = this.fetchDownloadURL(this.existingFiles[0].path);
+      this.downloadURL = this.imgService.getImgSize500(this.existingFiles[0].path);
     }
   }
 
