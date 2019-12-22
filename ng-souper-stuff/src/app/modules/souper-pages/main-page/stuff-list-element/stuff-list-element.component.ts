@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Stuff} from '../../../../services/stuff/stuff';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {StuffService} from '../../../../services/stuff/stuff.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {GroupService} from '../../../../services/group/group.service';
 import {StuffImg} from '../../../../services/images/stuff-img';
 import {ImgService} from '../../../../services/images/img.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -29,11 +30,11 @@ export class StuffListElementComponent implements OnInit {
 
   thumbnailUrl: Observable<string>;
   expandView = false;
-  editMode = false;
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
-  constructor(private stuffService: StuffService,
+  constructor(private router: Router,
+              private stuffService: StuffService,
               private groupService: GroupService,
               private imgService: ImgService) { }
 
@@ -54,32 +55,17 @@ export class StuffListElementComponent implements OnInit {
     this.expandView = !this.expandView;
   }
 
-  onToggleEditMode() {
-    this.editMode = !this.editMode;
-  }
-
   onFileUploaded(img: StuffImg) {
-    if (!this.stuff.images) {
-      this.stuff.images = [img];
-    }
-    if (!this.stuff.images.some((s: StuffImg) => s.path === img.path)) {
-      this.stuff.images.push(img);
-    }
+    // if (!this.stuff.images) {
+    //   this.stuff.images = [img];
+    // }
+    // if (!this.stuff.images.some((s: StuffImg) => s.path === img.path)) {
+    //   this.stuff.images.push(img);
+    // }
   }
 
-  onRatingsUpdated(rating) {
-    this.stuff.rating = rating;
-  }
-
-  onSave() {
-    const tagObject = {};
-    const currentTags: string[] = this.selectedTags$.getValue();
-    currentTags.forEach(tagString => tagObject[tagString] = true);
-    this.stuff.tags = tagObject;
-    console.log(this.stuff);
-    this.groupService.createTags(currentTags);
-    this.stuffService.updateStuff(this.stuff);
-    this.onToggleEditMode();
+  onEdit() {
+    this.router.navigate([`main/edit/${this.stuff.id}`]);
   }
 
   private initThumbnail() {

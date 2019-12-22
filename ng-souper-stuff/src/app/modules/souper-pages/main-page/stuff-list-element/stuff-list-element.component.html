@@ -5,7 +5,7 @@
   <div fxFlex class="item-preview-content">
     <div class="item-title">{{ stuff.name }}</div>
     <!-- star rating field -->
-    <app-star-rating-field *ngIf="stuff.rating || editMode" [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+    <app-star-rating-field *ngIf="stuff.rating" [rating]="stuff.rating" [readonly]="true"></app-star-rating-field>
   </div>
   <div fxFlex="nogrow" class="item-preview-action">
     <mat-icon class="icon" (click)="onToggleExpandView()">{{getExpandIconName()}}</mat-icon>
@@ -14,78 +14,69 @@
 
 <div class="item-edit-container" *ngIf="expandView" @expandAnimation>
 
-  <app-images-field *ngIf="stuff.images || editMode"
+  <app-images-field *ngIf="stuff.images"
                     [existingFiles]="stuff.images"
                     (fileUploaded)="onFileUploaded($event)"></app-images-field>
 
   <form>
-    <!-- name field -->
-    <mat-form-field *ngIf="editMode" class="width-100">
-      <mat-label>name</mat-label>
-      <input matInput
-             name="name"
-             placeholder="name"
-             type="text"
-             [(ngModel)]="stuff.name">
-    </mat-form-field>
     <div fxLayout="row" fxLayoutGap="10px">
       <!-- count field -->
-      <mat-form-field *ngIf="stuff.count || editMode" class="width-50" appearance="outline">
+      <mat-form-field *ngIf="stuff.count" class="width-50" appearance="outline">
         <mat-label>count</mat-label>
         <input matInput
                name="count"
                placeholder="count"
                type="number"
-               [readonly]="!editMode"
+               [readonly]="true"
                [(ngModel)]="stuff.count">
       </mat-form-field>
       <!-- price field -->
-      <mat-form-field *ngIf="stuff.price || editMode" class="width-50" appearance="outline">
+      <mat-form-field *ngIf="stuff.price" class="width-50" appearance="outline">
         <mat-label>price</mat-label>
         <input matInput
                name="price"
                placeholder="price"
                type="text"
-               [readonly]="!editMode"
+               [readonly]="true"
                [(ngModel)]="stuff.price">
         <mat-icon matSuffix>euro</mat-icon>
       </mat-form-field>
     </div>
 
     <!-- note field -->
-    <mat-form-field class="width-100" *ngIf="stuff.note || editMode">
+    <mat-form-field class="width-100" *ngIf="stuff.note">
       <textarea matInput
                 placeholder="note"
                 name="note"
-                [readonly]="!editMode"
+                [readonly]="true"
                 [(ngModel)]="stuff.note"></textarea>
     </mat-form-field>
     <!-- tags field -->
     <app-select-tags-field [selectedTags$]="selectedTags$"
                            [showBasicTags]="false"
                            [addOnBlur]="true"
-                           [readonly]="!editMode">
+                           [readonly]="true">
 
     </app-select-tags-field>
 
     <!-- adress fields -->
     <div>
-      <mat-form-field *ngIf="stuff.publicStation || editMode" class="width-100">
+      <mat-form-field *ngIf="stuff.publicStation" class="width-100">
         <mat-label>public station</mat-label>
         <input matInput
                name="publicStation"
                placeholder="public station"
                type="text"
-               [readonly]="!editMode"
+               [readonly]="true"
                [(ngModel)]="stuff.publicStation">
       </mat-form-field>
-      <mat-form-field *ngIf="stuff.street || editMode" class="width-100">
+      <mat-form-field *ngIf="stuff.street" class="width-100">
         <mat-label>street</mat-label>
         <input matInput
                name="street"
                placeholder="street"
                type="text"
-               [readonly]="!editMode"
+               [readonly]="true"
                [(ngModel)]="stuff.street">
       </mat-form-field>
     </div>
@@ -97,9 +88,7 @@
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
       <!-- toggle edit mode button -->
-      <mat-icon class="icon" (click)="onToggleEditMode()">edit</mat-icon>
-      <!-- save stuff button -->
-      <button *ngIf="editMode" mat-fab (click)="onSave()"><mat-icon>check</mat-icon></button>
+      <mat-icon class="icon" (click)="onEdit()">edit</mat-icon>
     </div>
   </form>
 </div>

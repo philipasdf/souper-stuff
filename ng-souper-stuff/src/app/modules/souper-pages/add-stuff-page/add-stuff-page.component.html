@@ -1,6 +1,12 @@
-<form [formGroup]="formGroup">
+<form #stuffForm="ngForm">
+
   <mat-form-field class="width-100">
-    <input matInput placeholder="name" type="text" formControlName="name" required>
+    <input matInput
+           placeholder="name"
+           type="text"
+           name="name"
+           [(ngModel)]="stuff.name"
+           required>
   </mat-form-field>
 
   <app-images-field [existingFiles]="images" (fileUploaded)="onFileUploaded($event)"></app-images-field>
@@ -9,31 +15,49 @@
 
   <mat-form-field class="width-100" appearance="outline">
     <mat-label>price</mat-label>
-    <input matInput placeholder="price" type="text" formControlName="price">
+    <input matInput
+           placeholder="price"
+           type="text"
+           name="price"
+           [(ngModel)]="stuff.price">
     <mat-icon matSuffix>euro</mat-icon>
   </mat-form-field>
 
   <!-- star rating field -->
-  <span class="label">rating </span><app-star-rating-field [rating]="rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
+  <span class="label">rating </span><app-star-rating-field [rating]="stuff.rating" (ratingUpdated)="onRatingsUpdated($event)"></app-star-rating-field>
 
   <mat-form-field class="width-100">
-    <textarea matInput placeholder="note" formControlName="note"></textarea>
+    <textarea matInput
+              name="note"
+              placeholder="note"
+              [(ngModel)]="stuff.note"></textarea>
   </mat-form-field>
 
-  <!-- adress group -->
-  <div formGroupName="addressGroup">
+  <!-- adress fields -->
+  <div>
     adress
-    <mat-form-field class="width-100">
-      <mat-label>public station</mat-label>
-      <input matInput placeholder="public station" type="text" formControlName="publicStation">
-    </mat-form-field>
-    <mat-form-field class="width-100">
-      <mat-label>street</mat-label>
-      <input matInput placeholder="street" type="text" formControlName="street">
-    </mat-form-field>
+    <div>
+      <mat-form-field class="width-100">
+        <mat-label>public station</mat-label>
+        <input matInput
+               placeholder="public station"
+               type="text"
+               name="publicStation"
+               [(ngModel)]="stuff.publicStation">
+      </mat-form-field>
+      <mat-form-field class="width-100">
+        <mat-label>street</mat-label>
+        <input matInput
+               placeholder="street"
+               type="text"
+               name="street"
+               [(ngModel)]="stuff.street">
+      </mat-form-field>
+    </div>
+
   </div>
 
   <button mat-flat-button color="primary"
-          [disabled]="!formGroup.valid"
-          (click)="onSubmit()">Create</button>
+          [disabled]="stuffForm.invalid"
+          (click)="onSubmit()">{{getButtonName()}}</button>
 </form>

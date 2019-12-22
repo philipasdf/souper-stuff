@@ -15,6 +15,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class StarRatingFieldComponent implements OnInit {
 
   @Input() rating: number;
+  @Input() readonly = false;
   @Output() ratingUpdated = new EventEmitter();
 
   private starCount = 5;
@@ -29,7 +30,9 @@ export class StarRatingFieldComponent implements OnInit {
   }
 
   onClick(rating: number) {
-    this.ratingUpdated.emit(rating);
+    if (!this.readonly) {
+      this.ratingUpdated.emit(rating);
+    }
   }
 
   showIcon(index: number) {

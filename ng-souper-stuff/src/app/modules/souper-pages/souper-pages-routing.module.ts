@@ -22,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: 'list', component: MainPageComponent, },
       { path: 'add', component: AddStuffPageComponent },
+      { path: 'edit/:id', component: AddStuffPageComponent },
     ]
   }
 ];

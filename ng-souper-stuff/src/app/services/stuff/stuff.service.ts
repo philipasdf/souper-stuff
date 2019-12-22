@@ -34,6 +34,10 @@ export class StuffService {
     });
   }
 
+  getStuff(id): Observable<Stuff> {
+    return this.firestore.doc<Stuff>(this.firestorePath + `/${id}`).valueChanges();
+  }
+
   async createStuff(stuff: Stuff) {
     stuff.id = this.firestore.createId();
     const stuffRef: AngularFirestoreDocument<Stuff> = this.firestore.doc(this.firestorePath + `/${stuff.id}`);
