@@ -42,7 +42,16 @@ export class AddStuffPageComponent implements OnInit {
     const stuffId = this.activatedRoute.snapshot.params['id'];
     if (stuffId) {
       this.editMode = true;
-      this.stuffService.getStuff(stuffId).subscribe(stuff => this.stuff = stuff);
+      this.stuffService.getStuff(stuffId).subscribe(stuff => {
+
+        const tagArray: string[] = [];
+        for (const key in stuff.tags) {
+          tagArray.push(key);
+        }
+        this.selectedTags$.next(tagArray);
+
+        this.stuff = stuff;
+      });
     }
   }
 
