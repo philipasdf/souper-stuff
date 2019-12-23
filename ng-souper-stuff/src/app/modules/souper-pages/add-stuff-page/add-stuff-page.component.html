@@ -9,9 +9,12 @@
            required>
   </mat-form-field>
 
-  <app-images-field [existingFiles]="images" (fileUploaded)="onFileUploaded($event)"></app-images-field>
-
-  <app-select-tags-field [selectedTags$]="selectedTags$" [addOnBlur]="true" [placeholderText]="'enter some tags or choose basic tags from above'"></app-select-tags-field>
+  <app-souper-images-slider-editor [images]="images" (imagesToUpload)="onSliderEditorOutput($event)"></app-souper-images-slider-editor>
+  <!-- tags field -->
+  <app-select-tags-field [selectedTags$]="selectedTags$"
+                         [addOnBlur]="true"
+                         [placeholderText]="'enter some tags or choose basic tags from above'">
+  </app-select-tags-field>
 
   <mat-form-field class="width-100" appearance="outline">
     <mat-label>price</mat-label>
@@ -60,4 +63,8 @@
   <button mat-flat-button color="primary"
           [disabled]="stuffForm.invalid"
           (click)="onSubmit()">{{getButtonName()}}</button>
+
+  <div *ngIf="percentage | async as p">
+    <progress [value]="p" max="100" class="width-100"></progress>
+  </div>
 </form>

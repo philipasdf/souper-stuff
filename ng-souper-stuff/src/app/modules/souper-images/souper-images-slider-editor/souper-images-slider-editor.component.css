@@ -1,0 +1,43 @@
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.preview-container {
+  position: relative;
+  height: 260px;
+}
+
+.preview-img-container {
+  position: absolute;
+}
+
+.preview-action-container {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.slider-container {
+  overflow-x: scroll;
+  height: 100px;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.slider-thumbnail {
+  height: 100%;
+  width: 100px;
+  display: inline-block;
+}
+
+.no-image-container {
+  height: 15vh;
+  text-align: center;
+  padding: 10px;
+}
+
+.no-image-container img {
+  object-fit: contain;
+}

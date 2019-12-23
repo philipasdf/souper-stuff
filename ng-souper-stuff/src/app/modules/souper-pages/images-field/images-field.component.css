@@ -4,6 +4,7 @@ progress::-webkit-progress-value {
 
 .photo-container {
   height: 18em;
+  width: 100%;
 }
 
 .photo-container img {
