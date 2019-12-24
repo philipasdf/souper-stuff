@@ -4,7 +4,6 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import {StuffService} from '../../../../services/stuff/stuff.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {GroupService} from '../../../../services/group/group.service';
-import {StuffImg} from '../../../../services/images/stuff-img';
 import {ImgService} from '../../../../services/images/img.service';
 import {Router} from '@angular/router';
 
@@ -53,15 +52,6 @@ export class StuffListElementComponent implements OnInit {
 
   onToggleExpandView() {
     this.expandView = !this.expandView;
-  }
-
-  onFileUploaded(img: StuffImg) {
-    // if (!this.stuff.images) {
-    //   this.stuff.images = [img];
-    // }
-    // if (!this.stuff.images.some((s: StuffImg) => s.path === img.path)) {
-    //   this.stuff.images.push(img);
-    // }
   }
 
   onEdit() {

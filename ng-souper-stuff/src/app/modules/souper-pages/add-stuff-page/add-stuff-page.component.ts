@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Stuff} from '../../../services/stuff/stuff';
 import {StuffService} from '../../../services/stuff/stuff.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {GroupService} from '../../../services/group/group.service';
 import {StuffImg} from '../../../services/images/stuff-img';
 import {SliderImg} from '../../souper-images/souper-images-slider-editor/slider-img';
 import {ImgService} from '../../../services/images/img.service';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
-import {finalize, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-stuff-page',

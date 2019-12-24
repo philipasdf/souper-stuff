@@ -24,6 +24,7 @@ img {
   height: 100px;
   overflow-y: hidden;
   white-space: nowrap;
+  margin-bottom: 15px;
 }
 
 .slider-thumbnail {
