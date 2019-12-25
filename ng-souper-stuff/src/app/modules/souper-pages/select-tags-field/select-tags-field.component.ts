@@ -47,7 +47,7 @@ export class SelectTagsFieldComponent implements OnInit {
 
     if ((value || '').trim()) {
       const currentTags: string[] = this.selectedTags$.getValue();
-      this.selectedTags$.next([...currentTags, value]);
+      this.selectedTags$.next([...currentTags, value.toLowerCase()]);
     }
     if (input) {
       input.value = '';
