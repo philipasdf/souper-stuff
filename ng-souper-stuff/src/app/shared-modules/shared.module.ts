@@ -5,20 +5,24 @@ import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {SouperImagesModule} from '../modules/souper-images/souper-images.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {Browser} from 'selenium-webdriver';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FlexLayoutModule,
-    SouperImagesModule
+    SouperImagesModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     CommonModule,
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
-    SouperImagesModule
+    SouperImagesModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AngularFireAuth
