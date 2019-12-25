@@ -23,7 +23,7 @@ export class StuffService {
           let query = ref.where('active', '==', true); // workaround to get query object from ref
 
           tags.forEach(tag => {
-            query = query.where(`tags.${tag}`, '==', true); // because cannot query multiple array-contains
+            query = query.where(`tags.${tag.toLowerCase()}`, '==', true); // because cannot query multiple array-contains
           });
           return query;
 
