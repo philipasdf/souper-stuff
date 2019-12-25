@@ -4,6 +4,7 @@ import { SouperImagesSliderComponent } from './souper-images-slider/souper-image
 import { SouperImagesSliderEditorComponent } from './souper-images-slider-editor/souper-images-slider-editor.component';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from '../../shared-modules/material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {MaterialModule} from '../../shared-modules/material.module';
   ],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MaterialModule,
     ReactiveFormsModule,
   ],

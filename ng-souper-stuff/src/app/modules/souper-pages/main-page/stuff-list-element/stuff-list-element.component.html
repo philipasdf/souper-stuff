@@ -14,9 +14,7 @@
 
 <div class="item-edit-container" *ngIf="expandView" @expandAnimation>
 
-  <app-images-field *ngIf="stuff.images"
-                    [existingFiles]="stuff.images"
-                    (fileUploaded)="onFileUploaded($event)"></app-images-field>
+  <app-souper-images-slider *ngIf="sliderImages.length > 0" [images]="sliderImages"></app-souper-images-slider>
 
   <form>
     <div fxLayout="row" fxLayoutGap="10px">

@@ -29,6 +29,7 @@ export class StuffListElementComponent implements OnInit {
 
   thumbnailUrl: Observable<string>;
   expandView = false;
+  sliderImages = [];
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
@@ -44,6 +45,11 @@ export class StuffListElementComponent implements OnInit {
       tagArray.push(key);
     }
     this.selectedTags$.next(tagArray);
+
+    // sort images
+    if (this.stuff.images) {
+      this.sliderImages = this.stuff.images;
+    }
   }
 
   getExpandIconName() {

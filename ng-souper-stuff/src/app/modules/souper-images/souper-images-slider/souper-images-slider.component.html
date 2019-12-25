@@ -1,1 +1,7 @@
-<p>souper-images-slider works!</p>
+<div *ngIf="imgUrl | async" class="preview-container" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()">
+  <img [src]="imgUrl | async">
+</div>
+<div class="slider-bar" fxLayout="row" fxLayoutAlign="center center">
+  <div *ngFor="let i of sliderBarArray" class="slider-bar-button" [ngClass]="{'filled': isCurrIndex(i)}">
+  </div>
+</div>
