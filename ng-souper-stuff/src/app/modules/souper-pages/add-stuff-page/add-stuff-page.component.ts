@@ -38,7 +38,8 @@ export class AddStuffPageComponent implements OnInit {
   task: AngularFireUploadTask;
   percentage: Observable<number>;
   snapshot: Observable<any>;
-  uploadQueue = new BehaviorSubject<number>(0);
+  uploadQueue;
+  uploadImgMsg: string;
 
   constructor(private stuffService: StuffService,
               private groupService: GroupService,
@@ -94,20 +95,28 @@ export class AddStuffPageComponent implements OnInit {
     console.log(this.stuff);
 
     // upload photos, if done
-    this.uploadQueue.next(this.editedImages.length);
-    this.uploadQueue.subscribe(nextIndex => {
-      console.log(nextIndex);
-      if (nextIndex > 0) {
-        const targetImg = this.editedImages[nextIndex - 1];
+    this.uploadQueue = new BehaviorSubject<number>(0);
+    this.uploadQueue.subscribe(index => {
+      console.log('nextindex for queue', index);
+      this.uploadImgMsg = `${index}/${this.editedImages.length}`;
+
+      if (index < this.editedImages.length) {
+        const targetImg = this.editedImages[index];
+        console.log('upload this img', targetImg);
         if (targetImg.file) {
-          this.uploadImg(targetImg, nextIndex - 1);
+          console.log('img is new', targetImg);
+          this.uploadImg(targetImg, index);
+        } else {
+          this.uploadQueue.next(index + 1);
         }
       } else {
-        console.log(this.stuff);
+        console.log('images are ready now save this stuff', this.stuff);
         // upload done
         if (this.editMode) {
+          console.log('update lets go');
           this.stuffService.updateStuff(this.stuff);
         } else {
+          console.log('create lets go');
           this.stuffService.createStuff(this.stuff);
         }
         this.groupService.createTags(currentTags);
@@ -130,24 +139,27 @@ export class AddStuffPageComponent implements OnInit {
     this.sortByIndex();
   }
 
-  private uploadImg(img: SliderImg, nextIndex: number) {
+  private uploadImg(img: SliderImg, index: number) {
     const storagePath = `${new Date().getTime()}_${img.file.name}`;
 
-    this.task        = this.firestorage.upload(storagePath, img.file);
-    this.percentage  = this.task.percentageChanges();
-    this.percentage.subscribe(p => {
-      console.log(p);
-      if (p === 100) {
+    const task        = this.firestorage.upload(storagePath, img.file);
+    this.percentage  = task.percentageChanges();
+    task.snapshotChanges().subscribe(snapshot => {
+      console.log(snapshot);
+      console.log(snapshot.bytesTransferred);
+      console.log(snapshot.totalBytes);
+      if (snapshot.bytesTransferred === snapshot.totalBytes) {
         const result: StuffImg = {
-          index: img.index,
-          path: storagePath,
-          fileSize: img.file.size
-        };
+            index: img.index,
+            path: storagePath,
+            fileSize: img.file.size
+          };
 
         this.stuff.images.push(result);
         console.log(this.stuff.images);
         this.sortByIndex();
-        this.uploadQueue.next(nextIndex); // will be emittet two times!
+
+        setTimeout(() => { this.uploadQueue.next(index + 1); }, 1500);
       }
     });
   }
