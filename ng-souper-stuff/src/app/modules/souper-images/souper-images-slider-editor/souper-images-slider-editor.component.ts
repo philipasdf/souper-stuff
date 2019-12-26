@@ -10,6 +10,7 @@ export class SouperImagesSliderEditorComponent {
 
   @Input() images: SliderImg[];
   @Output() imagesToUpload = new EventEmitter<SliderImg[]>();
+  @Output() imageToRemove = new EventEmitter<SliderImg>();
 
   readonly addImgIconUrl = 'assets/baseline_add_a_photo_black_48dp.png';
   currIndex = 0;
@@ -44,8 +45,10 @@ export class SouperImagesSliderEditorComponent {
 
   onRemove() {
     if (this.currIndex > -1) {
+      const imgToRemove = this.images[this.currIndex];
       this.images.splice(this.currIndex, 1);
       this.currIndex = 0;
+      this.imageToRemove.emit(imgToRemove);
     }
   }
 

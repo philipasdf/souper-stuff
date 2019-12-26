@@ -9,7 +9,7 @@
            required>
   </mat-form-field>
 
-  <app-souper-images-slider-editor [images]="images" (imagesToUpload)="onSliderEditorOutput($event)"></app-souper-images-slider-editor>
+  <app-souper-images-slider-editor [images]="images" (imagesToUpload)="onSliderEditorOutput($event)" (imageToRemove)="onSliderEditorRemove($event)"></app-souper-images-slider-editor>
   <!-- tags field -->
   <app-select-tags-field [selectedTags$]="selectedTags$"
                          [addOnBlur]="true"

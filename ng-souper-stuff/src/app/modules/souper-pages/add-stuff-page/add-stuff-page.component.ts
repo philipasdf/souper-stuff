@@ -32,12 +32,10 @@ export class AddStuffPageComponent implements OnInit {
 
   images: SliderImg[] = [];
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
-  editedImages: SliderImg[] = [];
+  newImages: SliderImg[] = [];
 
   // firestorage img upload
-  task: AngularFireUploadTask;
   percentage: Observable<number>;
-  snapshot: Observable<any>;
   uploadQueue;
   uploadImgMsg: string;
 
@@ -79,7 +77,11 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   onSliderEditorOutput(images) {
-    this.editedImages = images;
+    this.newImages = images;
+  }
+
+  onSliderEditorRemove(imgToRemove: SliderImg) {
+    this.stuff.images = this.stuff.images.filter(img => img.index !== imgToRemove.index);
   }
 
   onRatingsUpdated(rating) {
@@ -87,21 +89,14 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   onSubmit() {
-    const tagObject = {};
-    const currentTags: string[] = this.selectedTags$.getValue();
-    currentTags.forEach(tagString => tagObject[tagString] = true);
-
-    this.stuff.tags = tagObject;
-    console.log(this.stuff);
-
-    // upload photos, if done
+    // upload photos
     this.uploadQueue = new BehaviorSubject<number>(0);
     this.uploadQueue.subscribe(index => {
       console.log('nextindex for queue', index);
-      this.uploadImgMsg = `${index}/${this.editedImages.length}`;
+      this.uploadImgMsg = `${index}/${this.newImages.length}`;
 
-      if (index < this.editedImages.length) {
-        const targetImg = this.editedImages[index];
+      if (index < this.newImages.length) {
+        const targetImg = this.newImages[index];
         console.log('upload this img', targetImg);
         if (targetImg.file) {
           console.log('img is new', targetImg);
@@ -112,17 +107,28 @@ export class AddStuffPageComponent implements OnInit {
       } else {
         console.log('images are ready now save this stuff', this.stuff);
         // upload done
-        if (this.editMode) {
-          console.log('update lets go');
-          this.stuffService.updateStuff(this.stuff);
-        } else {
-          console.log('create lets go');
-          this.stuffService.createStuff(this.stuff);
-        }
-        this.groupService.createTags(currentTags);
-        this.router.navigate(['main/list']);
+        this.saveStuff();
       }
     });
+  }
+
+  private saveStuff() {
+    const tagObject = {};
+    const currentTags: string[] = this.selectedTags$.getValue();
+    currentTags.forEach(tagString => tagObject[tagString] = true);
+
+    this.stuff.tags = tagObject;
+    console.log(this.stuff);
+
+    if (this.editMode) {
+      console.log('update lets go');
+      this.stuffService.updateStuff(this.stuff);
+    } else {
+      console.log('create lets go');
+      this.stuffService.createStuff(this.stuff);
+    }
+    this.groupService.createTags(currentTags);
+    this.router.navigate(['main/list']);
   }
 
   private async initImages(images: StuffImg[]) {
