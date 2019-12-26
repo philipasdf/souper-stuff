@@ -47,6 +47,10 @@ export class SouperImagesSliderComponent implements OnInit {
     }
   }
 
+  onDragEnd(event) {
+    event.source.reset();
+  }
+
   private initImg() {
     if (this.images && this.images.length > 0) {
       this.imgUrl = this.imgService.getImgSize500(this.images[this.currIndex].path);

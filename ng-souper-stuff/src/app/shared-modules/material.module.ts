@@ -11,6 +11,7 @@ import {
   MatChipsModule,
   MatAutocompleteModule
 } from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {
     MatDividerModule,
     MatIconModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule
   ],
   exports: [
     MatToolbarModule,
@@ -35,7 +37,8 @@ import {
     MatDividerModule,
     MatIconModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule
   ]
 })
 export class MaterialModule { }

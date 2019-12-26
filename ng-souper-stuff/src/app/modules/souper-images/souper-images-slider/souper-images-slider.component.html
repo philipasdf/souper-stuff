@@ -1,4 +1,4 @@
-<div *ngIf="imgUrl | async" class="preview-container" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()">
+<div *ngIf="imgUrl | async" class="preview-container" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()" cdkDragLockAxis="x" cdkDrag (cdkDragEnded)="onDragEnd($event)">
   <img [src]="imgUrl | async">
 </div>
 <div class="slider-bar" fxLayout="row" fxLayoutAlign="center center">
