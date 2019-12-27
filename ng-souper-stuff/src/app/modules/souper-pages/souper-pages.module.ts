@@ -10,6 +10,7 @@ import { StuffListElementComponent } from './main-page/stuff-list-element/stuff-
 import { SelectTagsFieldComponent } from './select-tags-field/select-tags-field.component';
 import { StarRatingFieldComponent } from './star-rating-field/star-rating-field.component';
 import { InfoPageComponent } from './info-page/info-page.component';
+import {SouperImagesModule} from '../souper-images/souper-images.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { InfoPageComponent } from './info-page/info-page.component';
     SharedModule,
     SouperPagesRoutingModule,
     ReactiveFormsModule,
+    SouperImagesModule
   ],
   exports: [
   ]

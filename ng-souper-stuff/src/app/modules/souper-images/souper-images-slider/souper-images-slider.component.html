@@ -1,5 +1,5 @@
-<div *ngIf="imgUrl | async" class="preview-container" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()" cdkDragLockAxis="x" cdkDrag (cdkDragEnded)="onDragEnd($event)">
-  <img [src]="imgUrl | async">
+<div class="preview-container" (swiperight)="onSwipeRight()" (swipeleft)="onSwipeLeft()">
+  <img *ngIf="imgUrl | async" [src]="imgUrl | async" cdkDrag (cdkDragEnded)="onDragEnd($event)" cdkDragLockAxis="x">
 </div>
 <div class="slider-bar" fxLayout="row" fxLayoutAlign="center center">
   <div *ngFor="let i of sliderBarArray" class="slider-bar-button" [ngClass]="{'filled': isCurrIndex(i)}">

@@ -65,7 +65,6 @@ export class StuffListElementComponent implements OnInit {
   }
 
   private initThumbnail() {
-    console.log(this.stuff.images);
     if (this.stuff.images && this.stuff.images.length > 0) {
       this.thumbnailUrl = this.imgService.getImgSize200(this.stuff.images[0]);
     }

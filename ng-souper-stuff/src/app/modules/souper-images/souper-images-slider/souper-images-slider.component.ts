@@ -23,9 +23,6 @@ export class SouperImagesSliderComponent implements OnInit {
     for (let i = 0; i < this.images.length; i++) {
       this.sliderBarArray.push(i);
     }
-
-    console.log(this.images);
-    console.log(this.sliderBarArray);
     this.initImg();
   }
 
