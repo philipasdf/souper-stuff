@@ -32,7 +32,6 @@ export class AddStuffPageComponent implements OnInit {
 
   sliderImages: SliderImg[] = [];
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
-  newImages: SliderImg[] = [];
 
   // firestorage img upload
   percentage: Observable<number>;
@@ -80,16 +79,15 @@ export class AddStuffPageComponent implements OnInit {
     this.sliderImages = images;
   }
 
-  onSliderEditorRemove(imgToRemove: SliderImg) {
-    this.stuff.images = this.stuff.images.filter(img => img.index !== imgToRemove.index);
-  }
-
   onRatingsUpdated(rating) {
     this.stuff.rating = rating;
   }
 
   onSubmit() {
-    // upload photos
+    // reset images
+    const oldImages: StuffImg[] = this.stuff.images;
+    this.stuff.images = [];
+    // upload images
     this.uploadQueue = new BehaviorSubject<number>(0);
     this.uploadQueue.subscribe(index => {
       console.log('nextindex for queue', index);
@@ -97,18 +95,14 @@ export class AddStuffPageComponent implements OnInit {
 
       if (index < this.sliderImages.length) {
         const targetImg = this.sliderImages[index];
-        console.log('upload this img', targetImg);
-        if (targetImg.file) {
-          console.log('img is new', targetImg);
-          this.uploadImg(targetImg, index);
+        if (targetImg.id) {
+          this.updateImg(targetImg, index, oldImages);
         } else {
-          this.uploadQueue.next(index + 1);
+          this.uploadImg(targetImg, index);
         }
-      } else {
-        console.log('images are ready now save this stuff', this.stuff);
-        // upload done
-        this.saveStuff();
       }
+      // upload ready, save stuff
+      this.saveStuff();
     });
   }
 
@@ -116,15 +110,11 @@ export class AddStuffPageComponent implements OnInit {
     const tagObject = {};
     const currentTags: string[] = this.selectedTags$.getValue();
     currentTags.forEach(tagString => tagObject[tagString] = true);
-
     this.stuff.tags = tagObject;
-    console.log(this.stuff);
 
     if (this.editMode) {
-      console.log('update lets go');
       this.stuffService.updateStuff(this.stuff);
     } else {
-      console.log('create lets go');
       this.stuffService.createStuff(this.stuff);
     }
     this.groupService.createTags(currentTags);
@@ -134,36 +124,45 @@ export class AddStuffPageComponent implements OnInit {
   private async initImages(images: StuffImg[]) {
     for (let i = 0; i < images.length; i++) {
       const img = images[i];
-      const resizedPath = await this.imgService.getImgSize500(img.path).toPromise();
+      const resizedPath = await this.imgService.getImgSize500(img.path).toPromise().catch(error => {
+        console.log('Img Size 500 broken, remove it', error);
+      });
 
       this.sliderImages.push({
+        id: img.path, // there is no id for firestore map so, use unique path
         index: (img.index) ? img.index : i,
-        path: resizedPath
+        path: resizedPath || ''
       });
     }
 
     this.sortByIndex();
   }
 
+  private updateImg(img: SliderImg, index: number, oldImages) {
+    console.log('update existing img', img);
+    // map
+    const updatedImg: StuffImg = oldImages.find(old => old.path === img.id);
+    updatedImg.index = img.index;
+    // push
+    this.stuff.images.push(updatedImg);
+    this.uploadQueue.next(index + 1);
+  }
+
   private uploadImg(img: SliderImg, index: number) {
+    console.log('upload new img', img);
     const storagePath = `${new Date().getTime()}_${img.file.name}`;
 
     const task        = this.firestorage.upload(storagePath, img.file);
     this.percentage  = task.percentageChanges();
     task.snapshotChanges().subscribe(snapshot => {
-      console.log(snapshot);
-      console.log(snapshot.bytesTransferred);
-      console.log(snapshot.totalBytes);
+      console.log(snapshot.bytesTransferred + '/' + snapshot.totalBytes);
       if (snapshot.bytesTransferred === snapshot.totalBytes) {
         const result: StuffImg = {
             index: img.index,
             path: storagePath,
             fileSize: img.file.size
           };
-
         this.stuff.images.push(result);
-        console.log(this.stuff.images);
-        this.sortByIndex();
 
         setTimeout(() => { this.uploadQueue.next(index + 1); }, 1500);
       }

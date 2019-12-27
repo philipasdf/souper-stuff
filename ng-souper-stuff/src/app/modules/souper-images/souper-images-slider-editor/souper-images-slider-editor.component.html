@@ -9,8 +9,16 @@
 </div>
 
 <!-- slider -->
-<div class="slider-container" *ngIf="images && images.length > 0">
-  <div class="slider-thumbnail" *ngFor="let image of images" (click)="currIndex = images.indexOf(image)">
+<div class="slider-container"
+     *ngIf="images && images.length > 0"
+     cdkDropList
+     cdkDropListOrientation="horizontal"
+     (cdkDropListDropped)="onChangeSorting($event)">
+  <div class="slider-thumbnail"
+       *ngFor="let image of images"
+       (click)="currIndex = images.indexOf(image)"
+       cdkDrag
+       [cdkDragStartDelay]="175">
     <img [src]="image.path">
   </div>
   <div class="slider-thumbnail" (click)="fileInput.click()">

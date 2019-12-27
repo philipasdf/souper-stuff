@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {SliderImg} from './slider-img';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-souper-images-slider-editor',
@@ -10,7 +11,6 @@ export class SouperImagesSliderEditorComponent {
 
   @Input() images: SliderImg[];
   @Output() imagesToUpload = new EventEmitter<SliderImg[]>();
-  @Output() imageToRemove = new EventEmitter<SliderImg>();
 
   readonly addImgIconUrl = 'assets/baseline_add_a_photo_black_48dp.png';
   currIndex = 0;
@@ -48,8 +48,19 @@ export class SouperImagesSliderEditorComponent {
       const imgToRemove = this.images[this.currIndex];
       this.images.splice(this.currIndex, 1);
       this.currIndex = 0;
-      this.imageToRemove.emit(imgToRemove);
+      this.imagesToUpload.emit(this.images);
     }
+  }
+
+  onChangeSorting(event: CdkDragDrop<any[]>) {
+    // swap indexes
+    const tmp = this.images[event.previousIndex].index;
+    this.images[event.previousIndex].index = this.images[event.currentIndex].index;
+    this.images[event.currentIndex].index = tmp;
+
+    moveItemInArray(this.images, event.previousIndex, event.currentIndex);
+
+    this.imagesToUpload.emit(this.images);
   }
 
   private getNextIndex(): number {
