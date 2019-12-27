@@ -8,6 +8,8 @@ import {StuffImg} from '../../../services/images/stuff-img';
 import {SliderImg} from '../../souper-images/souper-images-slider-editor/slider-img';
 import {ImgService} from '../../../services/images/img.service';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {finalize, tap} from 'rxjs/operators';
+import {snapshotChanges} from '@angular/fire/database';
 
 @Component({
   selector: 'app-add-stuff-page',
@@ -100,9 +102,10 @@ export class AddStuffPageComponent implements OnInit {
         } else {
           this.uploadImg(targetImg, index);
         }
+      } else {
+        // upload ready, save stuff
+        this.saveStuff();
       }
-      // upload ready, save stuff
-      this.saveStuff();
     });
   }
 
@@ -154,19 +157,19 @@ export class AddStuffPageComponent implements OnInit {
 
     const task        = this.firestorage.upload(storagePath, img.file);
     this.percentage  = task.percentageChanges();
-    task.snapshotChanges().subscribe(snapshot => {
-      console.log(snapshot.bytesTransferred + '/' + snapshot.totalBytes);
-      if (snapshot.bytesTransferred === snapshot.totalBytes) {
+    const changes = task.snapshotChanges().pipe(tap(snapshot => console.log(snapshot.bytesTransferred + '/' + snapshot.totalBytes)));
+    changes.pipe(
+      finalize(() => {
         const result: StuffImg = {
-            index: img.index,
-            path: storagePath,
-            fileSize: img.file.size
-          };
+          index: img.index,
+          path: storagePath,
+          fileSize: img.file.size
+        };
         this.stuff.images.push(result);
 
-        setTimeout(() => { this.uploadQueue.next(index + 1); }, 1500);
-      }
-    });
+        setTimeout(() => {
+          this.uploadQueue.next(index + 1); }, 1500);
+      })).subscribe();
   }
 
   private sortByIndex() {
