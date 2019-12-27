@@ -25,6 +25,9 @@ export class StuffService {
           tags.forEach(tag => {
             query = query.where(`tags.${tag.toLowerCase()}`, '==', true); // because cannot query multiple array-contains
           });
+
+          // query = query.limit(20); TODO one day configurable
+
           return query;
 
         }).valueChanges();

@@ -19,7 +19,7 @@ export class SelectTagsFieldComponent implements OnInit {
   @Input() showBasicTags = true;
   @Input() addOnBlur;
 
-  basicTags = ['food', 'vegetarian', 'instant', 'takeaway', 'cook', 'cheese'];
+  basicTags = ['food', 'vegetarian', 'instant', 'takeaway', 'cook', 'cheese', 'rice', 'noodles', 'bread', 'healthy', 'breakfast'];
   allAvailableTags = [];
   filteredTags$: Observable<string[]>;
   tagInputControl = new FormControl();
