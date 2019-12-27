@@ -7,7 +7,7 @@ import {GroupService} from '../../../services/group/group.service';
 import {StuffImg} from '../../../services/images/stuff-img';
 import {SliderImg} from '../../souper-images/souper-images-slider-editor/slider-img';
 import {ImgService} from '../../../services/images/img.service';
-import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-add-stuff-page',
@@ -30,7 +30,7 @@ export class AddStuffPageComponent implements OnInit {
     images: []
   };
 
-  images: SliderImg[] = [];
+  sliderImages: SliderImg[] = [];
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
   newImages: SliderImg[] = [];
 
@@ -77,7 +77,7 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   onSliderEditorOutput(images) {
-    this.newImages = images;
+    this.sliderImages = images;
   }
 
   onSliderEditorRemove(imgToRemove: SliderImg) {
@@ -93,10 +93,10 @@ export class AddStuffPageComponent implements OnInit {
     this.uploadQueue = new BehaviorSubject<number>(0);
     this.uploadQueue.subscribe(index => {
       console.log('nextindex for queue', index);
-      this.uploadImgMsg = `${index}/${this.newImages.length}`;
+      this.uploadImgMsg = `${index}/${this.sliderImages.length}`;
 
-      if (index < this.newImages.length) {
-        const targetImg = this.newImages[index];
+      if (index < this.sliderImages.length) {
+        const targetImg = this.sliderImages[index];
         console.log('upload this img', targetImg);
         if (targetImg.file) {
           console.log('img is new', targetImg);
@@ -136,7 +136,7 @@ export class AddStuffPageComponent implements OnInit {
       const img = images[i];
       const resizedPath = await this.imgService.getImgSize500(img.path).toPromise();
 
-      this.images.push({
+      this.sliderImages.push({
         index: (img.index) ? img.index : i,
         path: resizedPath
       });
@@ -171,7 +171,7 @@ export class AddStuffPageComponent implements OnInit {
   }
 
   private sortByIndex() {
-    this.images.sort((a, b) => {
+    this.sliderImages.sort((a, b) => {
       return a.index - b.index;
     });
   }
