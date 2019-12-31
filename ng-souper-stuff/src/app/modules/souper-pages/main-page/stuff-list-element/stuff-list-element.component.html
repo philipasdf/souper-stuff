@@ -17,28 +17,18 @@
   <app-souper-images-slider *ngIf="sliderImages.length > 0" [images]="sliderImages"></app-souper-images-slider>
 
   <form>
-    <div fxLayout="row" fxLayoutGap="10px">
-      <!-- count field -->
-      <mat-form-field *ngIf="stuff.count" class="width-50" appearance="outline">
-        <mat-label>count</mat-label>
-        <input matInput
-               name="count"
-               placeholder="count"
-               type="number"
-               [readonly]="true"
-               [(ngModel)]="stuff.count">
-      </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="10px" style="margin-bottom: 10px;">
+      <!-- history button -->
+      <button *ngIf="stuff.history" fxFlex="50" mat-stroked-button color="primary" (click)="expandHistory = !expandHistory"><mat-icon>today</mat-icon> history</button>
       <!-- price field -->
-      <mat-form-field *ngIf="stuff.price" class="width-50" appearance="outline">
-        <mat-label>price</mat-label>
-        <input matInput
-               name="price"
-               placeholder="price"
-               type="text"
-               [readonly]="true"
-               [(ngModel)]="stuff.price">
-        <mat-icon matSuffix>euro</mat-icon>
-      </mat-form-field>
+      <button *ngIf="stuff.price" fxFlex="50" mat-stroked-button >{{stuff.price}} <mat-icon>euro_symbol</mat-icon></button>
+    </div>
+
+    <!-- history field -->
+    <div *ngIf="expandHistory" @expandAnimation>
+      <div *ngFor="let h of stuff.history">
+        {{h | json}}
+      </div>
     </div>
 
     <!-- note field -->
@@ -56,6 +46,16 @@
                            [readonly]="true">
 
     </app-select-tags-field>
+
+    <!-- last updated field -->
+    <mat-form-field *ngIf="stuff.lastUpdated" class="width-100">
+      <mat-label>last time</mat-label>
+      <input matInput
+             name="lastUpdated"
+             type="text"
+             [readonly]="true"
+             value="{{stuff.lastUpdated.toDate() | date:'dd/MM/yyyy'}}">
+    </mat-form-field>
 
     <!-- adress fields -->
     <div>
@@ -78,11 +78,6 @@
                [(ngModel)]="stuff.street">
       </mat-form-field>
     </div>
-
-    <!-- last time updated field
-  <div *ngIf="stuff.lastUpdated">
-    last time: {{stuff.lastUpdated.toDate()}}
-  </div>-->
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
       <button type="button" mat-mini-fab (click)="onEdit()"><mat-icon>edit</mat-icon></button>

@@ -13,4 +13,5 @@ export class Stuff {
   publicStation?: string;
   street?: string;
   images?: StuffImg[];
+  history?: History[];
 }

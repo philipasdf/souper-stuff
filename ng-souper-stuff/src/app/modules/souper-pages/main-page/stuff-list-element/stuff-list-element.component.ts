@@ -29,6 +29,7 @@ export class StuffListElementComponent implements OnInit {
 
   thumbnailUrl: Observable<string>;
   expandView = false;
+  expandHistory = false;
   sliderImages = [];
 
   selectedTags$: BehaviorSubject<string[]> = new BehaviorSubject([]);
