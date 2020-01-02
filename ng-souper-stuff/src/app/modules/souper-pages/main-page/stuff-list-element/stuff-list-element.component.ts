@@ -82,7 +82,7 @@ export class StuffListElementComponent implements OnInit {
 
   private initThumbnail() {
     if (this.stuff.images && this.stuff.images.length > 0) {
-      this.thumbnailUrl = this.imgService.getImgSize200(this.stuff.images[0]);
+      this.thumbnailUrl = this.imgService.getImgSize200(this.stuff.images[0].path);
     }
   }
 }

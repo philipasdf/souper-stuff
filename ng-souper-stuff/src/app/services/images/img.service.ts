@@ -21,8 +21,8 @@ export class ImgService {
     return this.firestorage.ref(path).getDownloadURL();
   }
 
-  getImgSize200(image: StuffImg): Observable<string> {
-    const path = this.convertPath(image.path, this.suffix200);
+  getImgSize200(originalPath: string): Observable<string> {
+    const path = this.convertPath(originalPath, this.suffix200);
     return this.firestorage.ref(path).getDownloadURL();
   }
 

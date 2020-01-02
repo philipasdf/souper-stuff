@@ -1,26 +1,44 @@
-<p>calendar-page works!</p>
-<div *ngFor="let h of history | async">
-  <p>{{h.historyId}}</p>
-  <p>{{h.shortNote}}</p>
-  <p>{{h.date}}</p>
-  <p>{{h.stuffId}}</p>
-  <p>{{h.stuffName}}</p>
-  <p>{{h.previewImg}}</p>
-</div>
-
-
 <mat-form-field class="width-50">
-  <input matInput [matDatepicker]="dateInput" name="date" [(ngModel)]="newHistory.date">
-  <mat-datepicker-toggle matPrefix [for]="dateInput"></mat-datepicker-toggle>
-  <mat-datepicker #dateInput></mat-datepicker>
+  <input matInput
+         [matDatepicker]="dateFromInput"
+         name="dateFrom" placeholder="from"
+         [(ngModel)]="dateFrom"
+         (dateChange)="setFilter()">
+  <mat-datepicker-toggle matPrefix [for]="dateFromInput"></mat-datepicker-toggle>
+  <mat-datepicker #dateFromInput></mat-datepicker>
 </mat-form-field>
 <mat-form-field class="width-50">
   <input matInput
-         placeholder="short note (optional)"
-         type="text"
-         name="shortNote"
-         [(ngModel)]="newHistory.shortNote">
+         [matDatepicker]="dateToInput"
+         name="dateTo"
+         placeholder="to"
+         [(ngModel)]="dateTo"
+         (dateChange)="setFilter()">
+  <mat-datepicker-toggle matPrefix [for]="dateToInput"></mat-datepicker-toggle>
+  <mat-datepicker #dateToInput></mat-datepicker>
 </mat-form-field>
 
-<button class="add-button" type="button" mat-mini-fab (click)="onAddHistory()"><mat-icon>add</mat-icon></button>
+<div *ngFor="let h of filteredHistory">
 
+  <div class="row" fxLayout="row">
+    <div class="date" fxFlex="18">
+      <p class="month" [ngStyle]="{'backgroundColor': getMonthColor(h.date.toDate() | date: 'M')}">{{h.date.toDate() | date: 'MMM'}}</p>
+      <p class="daynum">{{h.date.toDate() | date: 'd'}}</p>
+      <p class="dayname">{{h.date.toDate() | date: 'EEEE'}}</p>
+    </div>
+
+    <div fxLayout="row"
+         fxFlex
+         class="info"
+         [ngStyle]="{'backgroundColor': getMonthColor(h.date.toDate() | date: 'M')}">
+      <div class="text" fxFlex>
+        <div class="name">{{h.stuffName}}</div>
+        <div class="short-note">{{h.shortNote}}</div>
+      </div>
+      <div *ngIf="h.previewImg" class="thumbnail" fxFlex="30">
+        <app-calendar-thumbnail [imgPath]="h.previewImg"></app-calendar-thumbnail>
+      </div>
+    </div>
+  </div>
+
+</div>

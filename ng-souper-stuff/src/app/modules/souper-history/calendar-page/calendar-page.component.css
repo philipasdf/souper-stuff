@@ -1,0 +1,52 @@
+.row {
+  margin: 8px;
+}
+
+.date {
+  border-radius: 5px;
+  margin-right: 5px;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+}
+
+.month {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #d9d9d9;
+  font-size: 1em;
+  color: white;
+}
+
+.daynum {
+  font-size: 1.3em;
+  font-weight: bold;
+  font-size: 1.8em;
+}
+
+.dayname {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.info {
+  color: white;
+  border-radius: 5px;
+}
+
+.text {
+  padding: 8px;
+}
+
+.name {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.short-note {
+}
+
+.thumbnail img {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
