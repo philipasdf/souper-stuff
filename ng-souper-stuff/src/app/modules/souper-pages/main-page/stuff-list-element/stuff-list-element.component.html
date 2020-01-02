@@ -19,7 +19,7 @@
   <form>
     <div fxLayout="row" fxLayoutGap="10px" style="margin-bottom: 10px;">
       <!-- history button -->
-      <button *ngIf="stuff.history" fxFlex="50" mat-stroked-button color="primary" (click)="expandHistory = !expandHistory"><mat-icon>today</mat-icon> history</button>
+      <button fxFlex="50" mat-stroked-button color="primary" (click)="expandHistory = !expandHistory"><mat-icon>today</mat-icon> history</button>
       <!-- price field -->
       <button *ngIf="stuff.price" fxFlex="50" mat-stroked-button >{{stuff.price}} <mat-icon>euro_symbol</mat-icon></button>
     </div>

@@ -19,14 +19,15 @@ export class HistoryElementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (!this.history) {
+      this.history = [];
+    }
     this.history.sort((a, b) => {
       return a.date.seconds - b.date.seconds;
     });
   }
 
   onAddHistory() {
-    console.log(this.history);
-    console.log(this.newHistory);
     this.historyOutput.emit(this.newHistory);
   }
 }

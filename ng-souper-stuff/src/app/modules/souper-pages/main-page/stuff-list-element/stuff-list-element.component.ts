@@ -69,15 +69,12 @@ export class StuffListElementComponent implements OnInit {
   }
 
   onNewHistory(newHistory: History) {
-    console.log(this.stuff);
     newHistory.stuffId = this.stuff.id;
     newHistory.stuffName = this.stuff.name;
     if (this.stuff.images && this.stuff.images.length > 0) {
       newHistory.previewImg = this.stuff.images[0].path;
     }
-    this.historyService.createHistory(this.stuff, newHistory).then(history => {
-      // TODDO remove promise stuff
-    });
+    this.historyService.createHistory(this.stuff, newHistory);
   }
 
   private initThumbnail() {

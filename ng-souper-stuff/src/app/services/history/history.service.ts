@@ -29,26 +29,23 @@ export class HistoryService {
     }).valueChanges();
   }
 
-  async createHistory(stuff: Stuff, history: History): Promise<any> {
+  createHistory(stuff: Stuff, history: History) {
     history.historyId = this.firestore.createId();
     const stuffRef: AngularFirestoreDocument<History> = this.firestore.doc(this.firestorePath + `/${history.historyId}`);
 
-    return new Promise((resolve, reject) => {
+    if (stuff.history) {
+      stuff.history.push(history);
+    } else {
+      stuff.history = [history];
+    }
+    stuff.lastUpdated = history.date;
+    
+    this.stuffService.updateStuff(stuff);
 
-      if (stuff.history) {
-        stuff.history.push(history);
-      } else {
-        stuff.history = [history];
-      }
-      this.stuffService.updateStuff(stuff);
-
-      stuffRef.set(history).then(() => {
-        console.log('new history was added to collection');
-        resolve(history);
-      }).catch(error => {
-        console.error('error when adding new history to collection', history);
-        reject(error);
-      });
+    stuffRef.set(history).then(() => {
+      console.log('new history was added to collection');
+    }).catch(error => {
+      console.error('error when adding new history to collection', error);
     });
   }
 
