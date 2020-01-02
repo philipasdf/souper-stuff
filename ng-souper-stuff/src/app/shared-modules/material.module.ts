@@ -10,7 +10,7 @@ import {
   MatIconModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatDatepickerModule, MatNativeDateModule
+  MatDatepickerModule, MatNativeDateModule, MatMenuModule
 } from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
@@ -28,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
     DragDropModule
   ],
   exports: [
@@ -43,6 +44,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
     DragDropModule
   ],
   providers: [

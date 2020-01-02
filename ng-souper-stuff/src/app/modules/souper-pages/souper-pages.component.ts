@@ -9,6 +9,13 @@ import {Router} from '@angular/router';
 })
 export class SouperPagesComponent implements OnInit {
 
+  readonly nav = [
+    { title: 'Souper Stuff', url: '/main/list' },
+    { title: 'Souper Calendar', url: '/history/calendar' }
+  ];
+  currNavUrl = '';
+  currNav;
+
   readonly maxIconNumber = 3;
   randomIcon = 'assets/logo/1.jpg';
 
@@ -16,6 +23,9 @@ export class SouperPagesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currNavUrl = this.router.url;
+    this.currNav = this.nav.find(n => n.url === this.currNavUrl);
+
     const randomNumber = Math.floor(Math.random() * this.maxIconNumber + 1);
     this.randomIcon = `assets/logo/${randomNumber}.JPG`;
   }
@@ -28,7 +38,7 @@ export class SouperPagesComponent implements OnInit {
     this.authService.signOut();
   }
 
-  onNavigateToMain() {
-    this.router.navigate(['main/list']);
+  onNavigate(url) {
+    this.router.navigate([url]);
   }
 }
