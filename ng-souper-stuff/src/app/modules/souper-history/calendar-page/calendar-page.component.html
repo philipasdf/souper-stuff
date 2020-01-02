@@ -21,7 +21,7 @@
 <div *ngFor="let h of filteredHistory">
 
   <div class="row" fxLayout="row">
-    <div class="date" fxFlex="18">
+    <div class="date" fxFlex="none">
       <p class="month" [ngStyle]="{'backgroundColor': getMonthColor(h.date.toDate() | date: 'M')}">{{h.date.toDate() | date: 'MMM'}}</p>
       <p class="daynum">{{h.date.toDate() | date: 'd'}}</p>
       <p class="dayname">{{h.date.toDate() | date: 'EEEE'}}</p>
