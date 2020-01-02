@@ -11,6 +11,7 @@ import { SelectTagsFieldComponent } from './select-tags-field/select-tags-field.
 import { StarRatingFieldComponent } from './star-rating-field/star-rating-field.component';
 import { InfoPageComponent } from './info-page/info-page.component';
 import {SouperImagesModule} from '../souper-images/souper-images.module';
+import { HistoryElementComponent } from './main-page/history-element/history-element.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {SouperImagesModule} from '../souper-images/souper-images.module';
     SelectTagsFieldComponent,
     StarRatingFieldComponent,
     InfoPageComponent,
+    HistoryElementComponent,
   ],
   imports: [
     SharedModule,

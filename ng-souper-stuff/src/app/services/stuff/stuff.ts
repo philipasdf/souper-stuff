@@ -1,4 +1,5 @@
 import {StuffImg} from '../images/stuff-img';
+import {History} from '../history/history';
 
 export class Stuff {
   id?: string;

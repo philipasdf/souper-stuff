@@ -10,6 +10,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {SouperAdminModule} from './modules/souper-admin/souper-admin.module';
 import {SouperImagesModule} from './modules/souper-images/souper-images.module';
+import {SouperHistoryModule} from './modules/souper-history/souper-history.module';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -22,6 +23,7 @@ export const firebaseConfig = environment.firebaseConfig;
     SouperPagesModule,
     SouperAdminModule,
     SouperImagesModule,
+    SouperHistoryModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),

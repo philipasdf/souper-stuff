@@ -6,6 +6,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {GroupService} from '../../../../services/group/group.service';
 import {ImgService} from '../../../../services/images/img.service';
 import {Router} from '@angular/router';
+import {HistoryService} from '../../../../services/history/history.service';
+import {History} from '../../../../services/history/history';
 
 @Component({
   selector: 'app-stuff-list-element',
@@ -37,6 +39,7 @@ export class StuffListElementComponent implements OnInit {
   constructor(private router: Router,
               private stuffService: StuffService,
               private groupService: GroupService,
+              private historyService: HistoryService,
               private imgService: ImgService) { }
 
   ngOnInit() {
@@ -63,6 +66,18 @@ export class StuffListElementComponent implements OnInit {
 
   onEdit() {
     this.router.navigate([`main/edit/${this.stuff.id}`]);
+  }
+
+  onNewHistory(newHistory: History) {
+    console.log(this.stuff);
+    newHistory.stuffId = this.stuff.id;
+    newHistory.stuffName = this.stuff.name;
+    if (this.stuff.images && this.stuff.images.length > 0) {
+      newHistory.previewImg = this.stuff.images[0].path;
+    }
+    this.historyService.createHistory(this.stuff, newHistory).then(history => {
+      // TODDO remove promise stuff
+    });
   }
 
   private initThumbnail() {

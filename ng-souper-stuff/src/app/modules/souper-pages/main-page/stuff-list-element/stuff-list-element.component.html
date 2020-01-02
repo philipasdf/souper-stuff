@@ -25,10 +25,8 @@
     </div>
 
     <!-- history field -->
-    <div *ngIf="expandHistory" @expandAnimation>
-      <div *ngFor="let h of stuff.history">
-        {{h | json}}
-      </div>
+    <div class="history-container" *ngIf="expandHistory" @expandAnimation>
+      <app-history-element [history]="stuff.history" (historyOutput)="onNewHistory($event)"></app-history-element>
     </div>
 
     <!-- note field -->

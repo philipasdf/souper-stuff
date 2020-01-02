@@ -1,0 +1,21 @@
+<div *ngFor="let h of history">
+  <span>{{h.date.toDate() | date:'dd/MM/yyyy'}}</span> <!-- ignore toDate() fail on timestamp -->
+  <span>{{h.shortNote}}</span>
+</div>
+
+<form #stuffForm="ngForm">
+  <mat-form-field class="width-50">
+    <input matInput [matDatepicker]="dateInput" name="date" [(ngModel)]="newHistory.date">
+    <mat-datepicker-toggle matPrefix [for]="dateInput"></mat-datepicker-toggle>
+    <mat-datepicker #dateInput></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="width-50">
+    <input matInput
+           placeholder="short note (optional)"
+           type="text"
+           name="shortNote"
+           [(ngModel)]="newHistory.shortNote">
+  </mat-form-field>
+
+  <button class="add-button" type="button" mat-mini-fab (click)="onAddHistory()"><mat-icon>add</mat-icon></button>
+</form>
