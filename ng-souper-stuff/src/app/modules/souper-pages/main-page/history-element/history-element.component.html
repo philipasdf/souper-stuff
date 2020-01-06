@@ -1,11 +1,15 @@
+<h1>History <mat-icon class="icon" (click)="editMode = !editMode">edit</mat-icon></h1>
+
 <div *ngFor="let h of history">
-  <span>{{h.date.toDate() | date:'dd/MM/yyyy'}}</span> <!-- ignore toDate() fail on timestamp -->
+  <span>{{h.date | date:'dd/MM/yyyy'}}</span> <!-- ignore toDate() fail on timestamp -->
   <span>{{h.shortNote}}</span>
+  <mat-icon *ngIf="editMode" class="icon" (click)="onEditHistory(h)">edit</mat-icon>
+  <mat-icon *ngIf="editMode" class="icon" (click)="onDeleteHistory(h)">delete</mat-icon>
 </div>
 
 <form #stuffForm="ngForm">
   <mat-form-field class="width-50">
-    <input matInput [matDatepicker]="dateInput" name="date" [(ngModel)]="newHistory.date">
+    <input matInput [matDatepicker]="dateInput" name="date" [(ngModel)]="historyInput.date">
     <mat-datepicker-toggle matPrefix [for]="dateInput"></mat-datepicker-toggle>
     <mat-datepicker #dateInput></mat-datepicker>
   </mat-form-field>
@@ -14,8 +18,13 @@
            placeholder="short note (optional)"
            type="text"
            name="shortNote"
-           [(ngModel)]="newHistory.shortNote">
+           [(ngModel)]="historyInput.shortNote">
   </mat-form-field>
 
-  <button class="add-button" type="button" mat-mini-fab (click)="onAddHistory()"><mat-icon>add</mat-icon></button>
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button class="add-button" type="button" mat-mini-fab (click)="onSaveHistory()">
+      <mat-icon *ngIf="!editMode">add</mat-icon>
+      <mat-icon *ngIf="editMode">check</mat-icon>
+    </button>
+  </div>
 </form>

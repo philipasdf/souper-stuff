@@ -9,12 +9,16 @@ import {History} from '../../../../services/history/history';
 export class HistoryElementComponent implements OnInit {
 
   @Input() history: History[];
-  @Output() historyOutput = new EventEmitter();
+  @Output() newHistory = new EventEmitter();
+  @Output() updateHistory = new EventEmitter();
+  @Output() deleteHistory = new EventEmitter();
 
-  newHistory: History = {
+  historyInput: History = {
     shortNote: '',
     date: new Date()
   };
+
+  editMode = false;
 
   constructor() { }
 
@@ -22,12 +26,32 @@ export class HistoryElementComponent implements OnInit {
     if (!this.history) {
       this.history = [];
     }
+
+    this.history = this.history.map(h => {
+      h.date = h.date.toDate();
+      return h;
+    });
+
     this.history.sort((a, b) => {
       return a.date.seconds - b.date.seconds;
     });
   }
 
-  onAddHistory() {
-    this.historyOutput.emit(this.newHistory);
+  onSaveHistory() {
+    if (this.editMode) {
+      this.updateHistory.emit(this.historyInput);
+    } else {
+      this.newHistory.emit(this.historyInput);
+    }
   }
+
+  onEditHistory(history) {
+    this.historyInput = history;
+  }
+
+  onDeleteHistory(history) {
+    // TODO modal
+  }
+
+
 }

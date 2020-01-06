@@ -49,7 +49,16 @@ export class HistoryService {
     });
   }
 
-  updateHistory(history: History) {
+  updateHistory(stuff: Stuff, history: History) {
+
+    stuff.history = stuff.history.map(h => {
+      if (h.historyId === history.historyId) {
+        h = history;
+      }
+      return h;
+    });
+    this.stuffService.updateStuff(stuff);
+
     const stuffRef: AngularFirestoreDocument<History> = this.firestore.doc(this.firestorePath + `/${history.historyId}`);
     stuffRef.update(history).then(docRef => {
       console.log('history was updated');

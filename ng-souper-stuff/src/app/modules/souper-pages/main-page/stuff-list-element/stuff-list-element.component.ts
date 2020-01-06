@@ -70,11 +70,20 @@ export class StuffListElementComponent implements OnInit {
 
   onNewHistory(newHistory: History) {
     newHistory.stuffId = this.stuff.id;
-    newHistory.stuffName = this.stuff.name;
-    if (this.stuff.images && this.stuff.images.length > 0) {
-      newHistory.previewImg = this.stuff.images[0].path;
-    }
+    this.setStuffDetails(newHistory);
     this.historyService.createHistory(this.stuff, newHistory);
+  }
+
+  onUpdateHistory(updateHistory: History) {
+    this.setStuffDetails(updateHistory);
+    this.historyService.updateHistory(this.stuff, updateHistory);
+  }
+
+  private setStuffDetails(history) {
+    history.stuffName = this.stuff.name;
+    if (this.stuff.images && this.stuff.images.length > 0) {
+      history.previewImg = this.stuff.images[0].path;
+    }
   }
 
   private initThumbnail() {

@@ -26,7 +26,9 @@
 
     <!-- history field -->
     <div class="history-container" *ngIf="expandHistory" @expandAnimation>
-      <app-history-element [history]="stuff.history" (historyOutput)="onNewHistory($event)"></app-history-element>
+      <app-history-element [history]="stuff.history"
+                           (newHistory)="onNewHistory($event)"
+                           (updateHistory)="onUpdateHistory($event)"></app-history-element>
     </div>
 
     <!-- note field -->
