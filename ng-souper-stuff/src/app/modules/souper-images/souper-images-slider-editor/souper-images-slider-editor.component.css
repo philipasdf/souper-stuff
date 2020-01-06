@@ -33,6 +33,10 @@ img {
   display: inline-block;
 }
 
+.slider-thumbnail:active {
+  opacity: 0.5;
+}
+
 .no-image-container {
   height: 15vh;
   text-align: center;
