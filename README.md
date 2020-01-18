@@ -5,7 +5,7 @@
 I developed this application because I forget almost everything and Souper Stuff memorizes any stuff you like. It's not like I cannot remember that I like pasta. But often I don't know what pasta I ate last time, or how often I ate pasta this week. There are so many types of pasta that I struggle if someone asks me what pasta I like.
 In Souper Stuff you can create stuff you want to keep and add notes, images and more. Searchable tags let you browse through your stuff easily!
 
-![stuff list](https://i.ibb.co/8Xq8spS/souperstuffscreen1.jpg)
+![stuff list](https://i.ibb.co/4jndKX8/souperstuffscreen1.jpg)
 ![stuff detail view](https://i.ibb.co/8Xq8spS/souperstuffscreen2.jpg)
 
 I also use Souper Stuff to remember bars and restaurants I like or the last visit at the doctor. I can track stuff in a calendar to plan meals for the whole week or check up the last time I ordered Sushi.
