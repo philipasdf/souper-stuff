@@ -1,4 +1,21 @@
-souper-stuff
+# SOUPER STUFF
+
+## What is Souper Stuff?
+
+I developed this application because I forget almost everything and Souper Stuff memorizes any stuff you like. It's not like I cannot remember that I like pasta. But often I don't know what pasta I ate last time, or how often I ate pasta this week. There are so many types of pasta that I struggle if someone asks me what pasta I like.
+In Souper Stuff you can create stuff you want to keep and add notes, images and more. Searchable tags let you browse through your stuff easily!
+
+![Image description](https://i.ibb.co/8Xq8spS/souperstuffscreen2.jpg)
+![Image description](https://i.ibb.co/8Xq8spS/souperstuffscreen2.jpg)
+
+I also use Souper Stuff to remember bars and restaurants I like or the last visit at the doctor. I can track stuff in a calendar to plan meals for the whole week or check up the last time I ordered Sushi.
+
+![Calendar](https://i.ibb.co/4J1mYgF/souperstuffscreen3.jpg)
+
+**Souper Stuff is currently deactivated for public users**
+
+
+## Notes for myself
 
 Angular Material
 Firebase Authentication
@@ -10,8 +27,8 @@ ngx-auth-firebaseui https://www.npmjs.com/package/ngx-auth-firebaseui
 
 Firebase
 
-Structuring data 
-Explanation: 
+Structuring data
+Explanation:
 https://www.youtube.com/watch?v=o7d5Zeic63s
 https://www.youtube.com/watch?v=haMOUb3KVSo
 https://angularfirebase.com/lessons/advanced-firestore-nosql-data-structure-examples/#Advanced-Techniques-in-NoSQL
@@ -21,9 +38,9 @@ Put data in the same documents, if you're always display the data together. Beca
 
 Subcollection or Toplevel Collection?
 
-Subcollection: 
+Subcollection:
 If you're grabbing a collection. You're not grabbing the subcollections yet!
-store data hierarchly, if 
+store data hierarchly, if
 * mostly searching items PER subcollection  
 * occasionally do a collection group query
 Example:
@@ -35,10 +52,9 @@ Toplevel-Collection:
 * occasionally do "per book" query
 
 
-
 Souper Stuff Data Structure:
 
-The stuffs data structure and their relationship with users is not denormalized. I will manage stuffs as a subcollection of a userId, because I won't call querys across parents. There will be no stuff shared between all users or 
+The stuffs data structure and their relationship with users is not denormalized. I will manage stuffs as a subcollection of a userId, because I won't call querys across parents. There will be no stuff shared between all users or
 a user should not interact with lots of other users.
 Just in case if any stuff will be shared between users I decided to make user groups. So in the end there are these toplevel collections (or root collections):
 
@@ -52,7 +68,7 @@ root-collection Group {
  tags: SubCollection
 }
 
-root-collection Stuff { 
+root-collection Stuff {
  groupId: string;
 }
 
@@ -86,9 +102,6 @@ Can I delete documents of a subcollection easily?
 * its okay you are limited to delete a collection, but delete a document is fine.
 
 
-
-Solution Calendar:
-To display all the stuff of one month I'm gonna fetch all stuff.lastUpdated within one month
 
 Firebase Extra:
 Timestamps: https://firebase.google.com/docs/reference/js/firebase.firestore.Timestamp.html#todate
