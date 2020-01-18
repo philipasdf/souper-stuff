@@ -39,9 +39,8 @@ export class CalendarPageComponent implements OnInit {
 
     this.historyService.history$.subscribe(history => {
       history.sort((a, b) => {
-        return a.date.seconds - b.date.seconds;
+        return b.date.seconds - a.date.seconds;
       });
-      history.sort();
       this.history = history;
       this.setFilter();
     });

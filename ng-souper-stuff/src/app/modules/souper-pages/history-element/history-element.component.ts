@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {History} from '../../../../services/history/history';
+import {History} from '../../../services/history/history';
 
 @Component({
   selector: 'app-history-element',

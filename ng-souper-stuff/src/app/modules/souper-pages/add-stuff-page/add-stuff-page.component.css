@@ -1,3 +1,7 @@
 .label {
   color: #E13972;
 }
+
+textarea {
+  padding: 10px;
+}
