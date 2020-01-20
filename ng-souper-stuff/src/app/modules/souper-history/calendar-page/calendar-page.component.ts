@@ -50,7 +50,7 @@ export class CalendarPageComponent implements OnInit {
     return this.monthColors[month - 1];
   }
 
-  private setFilter() {
+  setFilter() {
     this.filteredHistory = this.history.filter(h => {
       const time = h.date.toDate().getTime();
       return ((time >= this.dateFrom.getTime()) && (time <= this.dateTo.getTime()));

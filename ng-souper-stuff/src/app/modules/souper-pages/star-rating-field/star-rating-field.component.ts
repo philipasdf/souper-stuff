@@ -18,8 +18,8 @@ export class StarRatingFieldComponent implements OnInit {
   @Input() readonly = false;
   @Output() ratingUpdated = new EventEmitter();
 
-  private starCount = 5;
-  private ratingArr = [];
+  starCount = 5;
+  ratingArr = [];
 
   constructor() { }
 

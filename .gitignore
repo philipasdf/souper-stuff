@@ -8,3 +8,9 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+
+ng-souper-stuff/src/environments/environment.prod.ts
+
+ng-souper-stuff/src/environments/environment.ts
+
+ng-souper-stuff/.firebase/hosting.ZGlzdFxuZy1zb3VwZXItc3R1ZmY.cache
