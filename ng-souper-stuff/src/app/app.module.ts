@@ -11,6 +11,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {SouperAdminModule} from './modules/souper-admin/souper-admin.module';
 import {SouperImagesModule} from './modules/souper-images/souper-images.module';
 import {SouperHistoryModule} from './modules/souper-history/souper-history.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -27,7 +28,8 @@ export const firebaseConfig = environment.firebaseConfig;
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
