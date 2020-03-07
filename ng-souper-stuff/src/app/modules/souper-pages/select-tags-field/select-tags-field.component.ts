@@ -3,7 +3,8 @@ import {GroupService} from '../../../services/group/group.service';
 import {Tag} from '../../../services/group/tag';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent} from '@angular/material';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import {FormControl} from '@angular/forms';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 
@@ -25,8 +26,8 @@ export class SelectTagsFieldComponent implements OnInit {
   tagInputControl = new FormControl();
   separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
 
-  @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(private groupService: GroupService) {
     this.groupService.currentGroupTags$.subscribe((tags: Tag[]) => {
