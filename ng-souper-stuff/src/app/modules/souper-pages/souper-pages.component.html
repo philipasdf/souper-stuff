@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span fxFlex class="app-title">{{this.currNav.title | uppercase}}</span>
+  <span fxFlex class="app-title">{{this.currNav?.title | uppercase}}</span>
   <img *ngIf="user | async as user"
        class="avatar"
        src="{{user.photoURL}}"

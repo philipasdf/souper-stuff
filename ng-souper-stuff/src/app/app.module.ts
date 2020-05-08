@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {SouperPagesModule} from './modules/souper-pages/souper-pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {SouperAdminModule} from './modules/souper-admin/souper-admin.module';

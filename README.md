@@ -17,6 +17,33 @@ I also use Souper Stuff to remember bars and restaurants I like or the last visi
 
 ## Notes for myself
 
+### setup
+environment files are not added on git, so after checkout git create:
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
+add environment.firebaseConfig
+```
+firebaseConfig = {
+    apiKey: " <apiKey> ",
+    authDomain: " <projectId> .firebaseapp.com",
+    databaseURL: "https:// <databaseName> .firebaseio.com",
+    storageBucket: " <bucket> .appspot.com" (without gs://)
+  };
+```
+setup firebase metafiles
+when firebase init:
+* choose firebase hosting
+* choose public directory 'dist/ng-souper-stuff'
+```
+npm i -g firebase-tools
+firebase login
+firebase init
+```
+
+
+### notes
+
 Angular Material
 Firebase Authentication
 
