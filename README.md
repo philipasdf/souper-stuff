@@ -41,6 +41,12 @@ firebase login
 firebase init
 ```
 
+### deploy
+```
+ng build --prod
+firebase login --reauth
+firebase deploy
+```
 
 ### notes
 
