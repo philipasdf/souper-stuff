@@ -14,15 +14,16 @@ I also use Souper Stuff to remember bars and restaurants I like or the last visi
 
 **Souper Stuff is currently deactivated for public users**
 
-
 ## Notes for myself
 
 ### setup
+
 environment files are not added on git, so after checkout git create:
 /src/environments/environment.ts
 /src/environments/environment.prod.ts
 
 add environment.firebaseConfig
+
 ```
 firebaseConfig = {
     apiKey: " <apiKey> ",
@@ -31,10 +32,13 @@ firebaseConfig = {
     storageBucket: " <bucket> .appspot.com" (without gs://)
   };
 ```
+
 setup firebase metafiles
 when firebase init:
-* choose firebase hosting
-* choose public directory 'dist/ng-souper-stuff'
+
+- choose firebase hosting
+- choose public directory 'dist/ng-souper-stuff'
+
 ```
 npm i -g firebase-tools
 firebase login
@@ -42,11 +46,14 @@ firebase init
 ```
 
 ### deploy
+
 ```
 ng build --prod
 firebase login --reauth
 firebase deploy
 ```
+
+=======
 
 ### notes
 
@@ -74,16 +81,17 @@ Subcollection or Toplevel Collection?
 Subcollection:
 If you're grabbing a collection. You're not grabbing the subcollections yet!
 store data hierarchly, if
-* mostly searching items PER subcollection  
-* occasionally do a collection group query
-Example:
-collection("movie/filmXY/actors").where(age >= 20)
-collectionGroup("actors").where(name == "Adam") // show all actors named Adam of all movies
+
+- mostly searching items PER subcollection
+- occasionally do a collection group query
+  Example:
+  collection("movie/filmXY/actors").where(age >= 20)
+  collectionGroup("actors").where(name == "Adam") // show all actors named Adam of all movies
 
 Toplevel-Collection:
-* mostly searching across all documents
-* occasionally do "per book" query
 
+- mostly searching across all documents
+- occasionally do "per book" query
 
 Souper Stuff Data Structure:
 
@@ -92,49 +100,47 @@ a user should not interact with lots of other users.
 Just in case if any stuff will be shared between users I decided to make user groups. So in the end there are these toplevel collections (or root collections):
 
 root-collection Users {
- name: string,
- groupId: string
+name: string,
+groupId: string
 }
 
 root-collection Group {
- name: string;
- tags: SubCollection
+name: string;
+tags: SubCollection
 }
 
 root-collection Stuff {
- groupId: string;
+groupId: string;
 }
 
 sub-collection GroupStuff {
 
- name: string,
- note: string,
- rating: number,
- price: number,
- priceRange: number,
+name: string,
+note: string,
+rating: number,
+price: number,
+priceRange: number,
 
- adress: {
-  street: string,
-  city: string,
-  publicStation: string
- },
+adress: {
+street: string,
+city: string,
+publicStation: string
+},
 
- photoes
- num_history: number,
- lastUpdated: Date,
- history: [collection]
- tags: {
-  tag1: true,
-  tag2: true
- }
+photoes
+num_history: number,
+lastUpdated: Date,
+history: [collection]
+tags: {
+tag1: true,
+tag2: true
+}
 
 }
 
-
 Can I delete documents of a subcollection easily?
-* its okay you are limited to delete a collection, but delete a document is fine.
 
-
+- its okay you are limited to delete a collection, but delete a document is fine.
 
 Firebase Extra:
 Timestamps: https://firebase.google.com/docs/reference/js/firebase.firestore.Timestamp.html#todate

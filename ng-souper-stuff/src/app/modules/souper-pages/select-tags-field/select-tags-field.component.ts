@@ -41,6 +41,7 @@ export class SelectTagsFieldComponent implements OnInit {
     'drink',
     'quick',
     'special',
+    'misc',
   ];
   allAvailableTags = [];
   filteredTags$: Observable<string[]>;
